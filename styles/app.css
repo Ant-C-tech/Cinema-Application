@@ -11,16 +11,43 @@ html {
 }
 
 body {
+  display: flex;
+  align-items: center;
+
+  height: 100vh;
+
+  padding: 0 32px;
+
   background: url(../img/poster.jpg) no-repeat center;
   background-size: 100%;
-
   backdrop-filter: blur(50px);
 }
 
 main {
-  max-width: 1270px;
-  height: 100vh;
+  display: flex;
 
+  max-width: 1270px;
+
+  overflow: hidden;
   margin: 0 auto;
-  padding: 0 32px;
+
+  border-radius: 10px;
+  box-shadow: 5px 9px 20px rgba(0, 0, 0, 0.25);
+}
+
+.posterSection {
+  width: 40%;
+
+  position: relative;
+}
+
+.posterSection__img {
+  display: block;
+
+  width: 100%;
+}
+
+.controlSection {
+  width: 60%;
+  background-color: #e1e1e1;
 }
