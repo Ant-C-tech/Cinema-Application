@@ -161,22 +161,26 @@ main {
 
 .controlSection {
   width: 60%;
-  padding: 20px 40px;
+  padding: 20px 60px;
 
   background-color: var(--main-color);
 }
 
 .movieType {
-  display: flex;
-  justify-content: space-around;
+  margin-bottom: 50px;
 }
 
-.movieType__item {
+.movieType__list {
+  display: flex;
+  justify-content: space-between;
+}
+
+.movieType__listItem {
   position: relative;
   list-style-type: none;
 }
 
-.movieType__item::after {
+.movieType__listItem::after {
   position: absolute;
   content: "";
   bottom: -8px;
@@ -188,13 +192,13 @@ main {
   box-shadow: 4px 4px 8px var(--main-font-color);
 }
 
-.movieType__item-active::after {
+.movieType__listItem-active::after {
   height: 3px;
   background: var(--secondary-color);
   box-shadow: 3px 3px 5px var(--secondary-color);
 }
 
-.movieType__itemLink {
+.movieType__listItemLink {
   text-decoration: none;
 
   font-size: 20px;
@@ -204,6 +208,77 @@ main {
   color: var(--main-font-color);
 }
 
-.movieType__itemLink-active {
+.movieType__listItemLink-active {
   color: var(--active-font-color);
+}
+
+.movieDate {
+  margin-bottom: 50px;
+}
+
+.movieDate__title {
+  margin-bottom: 10px;
+  text-decoration: none;
+
+  font-size: 25px;
+  font-weight: normal;
+  line-height: 1.5;
+  font-family: var(--main-font);
+  color: var(--active-font-color);
+}
+
+.flexRow {
+  display: flex;
+  /* justify-content: space-between; */
+  margin-bottom: 50px;
+}
+
+.btn-prevDay {
+  display: block;
+
+  width: fit-content;
+  margin-right: 15px;
+  padding-top: 4px;
+
+  text-decoration: none;
+  color: var(--active-font-color);
+  font-size: 20px;
+}
+
+.calendar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.calendar__listItem {
+  position: relative;
+  list-style-type: none;
+
+  margin: 0 20px;
+}
+
+.calendar__listItemLink {
+  text-decoration: none;
+
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1.5;
+  font-family: var(--main-font);
+  color: var(--main-font-color);
+}
+
+.calendar__listItemLink-active {
+  color: var(--active-font-color);
+}
+
+.btn-nextDay {
+  display: block;
+
+  width: fit-content;
+  margin-left: 15px;
+  padding-top: 4px;
+
+  text-decoration: none;
+  color: var(--active-font-color);
+  font-size: 20px;
 }

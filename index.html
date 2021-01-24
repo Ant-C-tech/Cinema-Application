@@ -124,7 +124,7 @@
         </div>
 
         <div class="badge badge-data">
-            <p>01 March<br>1h 39m</p>
+            <p>From<br>01 March<br>1h 39m</p>
         </div>
 
         <div class="mask"></div>
@@ -137,20 +137,37 @@
       </section>
 
       <section class="controlSection">
-        <ul class="movieType">
-          <li class="movieType__item">
-            <a class="movieType__itemLink" href="#">General</a>
-          </li>
-          <li class="movieType__item">
-            <a class="movieType__itemLink" href="#">Digital 2D</a>
-          </li>
-          <li class="movieType__item movieType__item-active">
-            <a class="movieType__itemLink movieType__itemLink-active" href="#">IMAX 3D</a>
-          </li>
-          <li class="movieType__item">
-            <a class="movieType__itemLink" href="#">Cinema 4Dx</a>
-          </li>
-        </ul>
+        <nav class="movieType">
+          <ul class="movieType__list">
+            <li class="movieType__listItem">
+              <a class="movieType__listItemLink" href="#">General</a>
+            </li>
+            <li class="movieType__listItem">
+              <a class="movieType__listItemLink" href="#">Digital 2D</a>
+            </li>
+            <li class="movieType__listItem movieType__listItem-active">
+              <a class="movieType__listItemLink movieType__listItemLink-active" href="#">IMAX 3D</a>
+            </li>
+            <li class="movieType__listItem">
+              <a class="movieType__listItemLink" href="#">Cinema 4Dx</a>
+            </li>
+          </ul>
+        </nav>
+
+        <nav class="movieDate">
+          <p class="movieDate__title">Tue, 2 March</p>
+          <div class="flexRow">
+            <a href="#" class="btn-prevDay">&#9668</a>
+              <ol class="calendar">
+                <li class="calendar__listItem"><a href="#" class="calendar__listItemLink">Today<br>1</a></li>
+                <li class="calendar__listItem"><a href="#" class="calendar__listItemLink calendar__listItemLink-active">2</a></li>
+                <li class="calendar__listItem"><a href="#" class="calendar__listItemLink">3</a></li>
+                <li class="calendar__listItem"><a href="#" class="calendar__listItemLink">4</a></li>
+                <li class="calendar__listItem"><a href="#" class="calendar__listItemLink">5</a></li>
+              </ol>
+            <a href="#" class="btn-nextDay">	&#9658</a>
+          </div>
+        </nav>
       </section>
     </main>
   </body>
