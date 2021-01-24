@@ -1,3 +1,8 @@
+:root {
+  --main-bg-color: #e1e1e1;
+  --main-shadow-color: rgba(0, 0, 0, 0.25);
+}
+
 html {
   overflow: hidden;
 }
@@ -18,13 +23,24 @@ body {
 
   padding: 0 32px;
 
-  background: url(../img/poster.jpg) no-repeat center;
+  /* background: url(../img/poster.jpg) no-repeat center;
   background-size: 100%;
-  backdrop-filter: blur(50px);
+  backdrop-filter: blur(50px); */
+}
+
+.trailer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 main {
+  position: relative;
   display: flex;
+  z-index: 10;
 
   max-width: 1270px;
 
@@ -32,7 +48,7 @@ main {
   margin: 0 auto;
 
   border-radius: 10px;
-  box-shadow: 5px 9px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 5px 9px 20px var(--main-shadow-color);
 }
 
 .posterSection {
@@ -49,5 +65,5 @@ main {
 
 .controlSection {
   width: 60%;
-  background-color: #e1e1e1;
+  background-color: var(--main-bg-color);
 }
