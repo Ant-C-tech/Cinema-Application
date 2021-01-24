@@ -1,0 +1,26 @@
+html {
+  overflow: hidden;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background: url(../img/poster.jpg) no-repeat center;
+  background-size: 100%;
+
+  backdrop-filter: blur(50px);
+}
+
+main {
+  max-width: 1270px;
+  height: 100vh;
+
+  margin: 0 auto;
+  padding: 0 32px;
+}
