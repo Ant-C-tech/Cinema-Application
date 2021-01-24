@@ -125,7 +125,12 @@ main {
 }
 
 .btn-readMore {
-  text-align: center;
+  display: block;
+
+  width: fit-content;
+  margin: 0 auto;
+
+  text-decoration: none;
   color: var(--main-color);
   font-size: 20px;
 }
@@ -183,13 +188,13 @@ main {
   box-shadow: 4px 4px 8px var(--main-font-color);
 }
 
-.movieType__item-active::after  {
+.movieType__item-active::after {
   height: 3px;
   background: var(--secondary-color);
   box-shadow: 3px 3px 5px var(--secondary-color);
 }
 
-.movieType__itemLink{
+.movieType__itemLink {
   text-decoration: none;
 
   font-size: 20px;
