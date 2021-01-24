@@ -2,6 +2,10 @@
   --main-color: #e1e1e1;
   --secondary-color: #9db09a;
   --main-shadow-color: rgba(0, 0, 0, 0.6);
+
+  --main-font-color: #9b9a9a;
+  --active-font-color: #3a3a3a;
+
   --main-font: "Montserrat", sans-serif;
   --secondary-font: "Rubik", sans-serif;
 }
@@ -152,5 +156,49 @@ main {
 
 .controlSection {
   width: 60%;
+  padding: 20px 40px;
+
   background-color: var(--main-color);
+}
+
+.movieType {
+  display: flex;
+  justify-content: space-around;
+}
+
+.movieType__item {
+  position: relative;
+  list-style-type: none;
+}
+
+.movieType__item::after {
+  position: absolute;
+  content: "";
+  bottom: -8px;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  width: 100%;
+  height: 1.5px;
+  background: var(--main-font-color);
+  box-shadow: 4px 4px 8px var(--main-font-color);
+}
+
+.movieType__item-active::after  {
+  height: 3px;
+  background: var(--secondary-color);
+  box-shadow: 3px 3px 5px var(--secondary-color);
+}
+
+.movieType__itemLink{
+  text-decoration: none;
+
+  font-size: 20px;
+  font-weight: normal;
+  line-height: 1.5;
+  font-family: var(--main-font);
+  color: var(--main-font-color);
+}
+
+.movieType__itemLink-active {
+  color: var(--active-font-color);
 }
