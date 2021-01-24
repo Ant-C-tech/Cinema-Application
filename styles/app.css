@@ -59,9 +59,8 @@ main {
   border-right: 2px solid var(--secondary-color);
 }
 
-.rating {
+.badge {
   position: absolute;
-  left: 0;
   top: 0;
   z-index: 20;
 
@@ -74,8 +73,20 @@ main {
   font-weight: bold;
 
   border: 3px solid rgba(0, 0, 0, 0.4);
-  box-shadow: 2px 2px 18px var(--secondary-color);;
+  box-shadow: 2px 2px 18px var(--secondary-color);
   border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.badge-rating {
+  left: 0;
+}
+
+.badge-data {
+  right: 0;
+
+  border-radius: 5%;
 }
 
 .textContent {
@@ -86,8 +97,6 @@ main {
 
   width: 100%;
   padding: 40px 40px 20px;
-
-  /* background: var(--main-shadow-color); */
 }
 
 .textContent__title {
@@ -135,8 +144,8 @@ main {
   background: linear-gradient(
     0deg,
     rgba(0, 0, 0, 9) 5%,
-    rgba(0, 0, 0, 0.7) 30%,
-    rgba(0, 0, 0, 0.2) 45%,
+    rgba(0, 0, 0, 0.7) 40%,
+    rgba(0, 0, 0, 0.2) 50%,
     rgba(0, 0, 0, 0) 100%
   );
 }
