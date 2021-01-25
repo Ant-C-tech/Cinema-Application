@@ -344,11 +344,12 @@ main {
 }
 
 .hall {
+  margin-bottom: 15px;
 }
 
 .hall__screen {
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
   text-decoration: none;
 
   text-align: center;
@@ -376,4 +377,95 @@ main {
     rgba(157, 176, 154, 0.2) 50%,
     rgba(157, 176, 154, 0) 70%
   );
+}
+
+.hall__row {
+  display: flex;
+  justify-content: center;
+}
+
+.seat {
+  margin: 5px 3px;
+}
+
+.seat__mask {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  background: #fff;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: 1.5;
+  font-family: var(--main-font);
+  color: var(--secondary-color);
+
+  transition: all ease-in-out 0.2s;
+}
+
+.seat__input:checked + .seat__mask {
+  background: var(--secondary-color);
+  color: var(--active-font-color);
+  font-weight: bold;
+}
+
+.seat__input:focus + .seat__mask {
+  border: 1px solid var(--main-font-color);
+}
+
+.seat__input:disabled + .seat__mask {
+  background: var(--main-font-color);
+  color: #fff;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.hall__legend{
+  display: flex;
+  justify-content: space-around;
+}
+
+.hall__legendItem{
+  position: relative;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.5;
+  font-family: var(--main-font);
+  color: var(--main-font-color);
+}
+
+.hall__legendItem::before{
+  position: absolute;
+  content: "";
+  bottom: 6px;
+  left: -20px;
+
+  width: 12px;
+  height: 12px;
+
+  border-radius: 2px;
+}
+
+.hall__legendItem-available::before{
+    background: #fff;
+}
+
+.hall__legendItem-taken::before{
+    background: var(--main-font-color);
+}
+
+.hall__legendItem-selection::before{
+    background: var(--secondary-color);
 }
