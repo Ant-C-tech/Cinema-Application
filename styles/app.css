@@ -10,16 +10,28 @@
   --secondary-font: "Rubik", sans-serif;
 }
 
-html {
-  overflow: hidden;
-}
-
 *,
 *:before,
 *:after {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  margin: 10px;
+  background-color: var(--main-color);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-color);
+  border: 1px solid var(--main-color);
+  border-radius: 2px;
 }
 
 body {
@@ -56,10 +68,11 @@ main {
 }
 
 .posterSection {
-  width: 40%;
-
   position: relative;
+  flex-basis: 500px;
+  flex-shrink: 0;
 
+  background: #000;
   border-right: 2px solid var(--secondary-color);
 }
 
@@ -160,7 +173,8 @@ main {
 }
 
 .controlSection {
-  width: 60%;
+  flex-grow: 1;
+  flex-shrink: 1;
   padding: 20px 60px;
 
   background-color: var(--main-color);
@@ -490,4 +504,259 @@ main {
 
 .shoppingCart__img {
   width: 20px;
+}
+
+@media screen and (max-width: 1130px) {
+  .posterSection {
+    flex-basis: 450px;
+  }
+
+  .controlSection {
+    padding: 20px 30px;
+  }
+
+  .movieType__listItemLink,
+  .movieTime__listItemLink {
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  .movieDate__title,
+  .movieTime__title {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .movieTime__title {
+    margin-bottom: 10px;
+  }
+
+  .hall__screen {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .seat__mask {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .posterSection {
+    flex-basis: 400px;
+  }
+
+  .calendar__listItem {
+    margin: 0 15px;
+  }
+
+  .movieType {
+    margin-bottom: 30px;
+  }
+
+  .movieDate {
+    margin-bottom: 5px;
+  }
+
+  .movieTime {
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 890px) {
+  body {
+    padding: 0 10px;
+  }
+
+  .posterSection {
+    flex-basis: 380px;
+  }
+
+  .calendar__listItem {
+    margin: 0 10px;
+  }
+
+  .movieType__listItemLink,
+  .movieTime__listItemLink {
+    font-size: 14px;
+    line-height: 1.1;
+  }
+
+  .movieDate__title,
+  .movieTime__title {
+    font-size: 16px;
+    line-height: 1.1;
+  }
+
+  .movieTime {
+    margin-bottom: 30px;
+  }
+
+  .hall__screen {
+    font-size: 16px;
+    line-height: 1.1;
+  }
+
+  .seat__mask {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media screen and (max-width: 824px) {
+  body {
+    height: auto;
+    padding: 32px 32px;
+
+    background: var(--secondary-color);
+  }
+
+  .trailer {
+    display: none;
+  }
+
+  main {
+    flex-wrap: wrap;
+  }
+
+  .posterSection {
+    flex-basis: 100%;
+    border-right: none;
+  }
+
+  .controlSection {
+    flex-basis: 100%;
+    padding: 20px 60px;
+  }
+
+  .movieType__listItemLink,
+  .movieTime__listItemLink {
+    font-size: 20px;
+    line-height: 1.5;
+  }
+
+  .movieDate__title,
+  .movieTime__title {
+    font-size: 25px;
+    line-height: 1.5;
+  }
+
+  .hall__screen {
+    font-size: 25px;
+    line-height: 1.5;
+  }
+
+  .seat__mask {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  body {
+    padding: 0px 0px;
+  }
+
+  main {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .controlSection {
+    padding: 20px 30px;
+  }
+
+  .movieType__listItemLink,
+  .movieTime__listItemLink {
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  .movieDate__title,
+  .movieTime__title {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .movieTime__title {
+    margin-bottom: 10px;
+  }
+
+  .hall__screen {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+
+  .seat__mask {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .mask {
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 9) 5%,
+      rgba(0, 0, 0, 0.7) 70%,
+      rgba(0, 0, 0, 0.2) 80%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  }
+
+    .controlSection {
+    padding: 20px 10px;
+  }
+
+  .movieType__listItemLink,
+  .movieTime__listItemLink {
+    font-size: 14px;
+    line-height: 1.1;
+  }
+
+  .movieDate__title,
+  .movieTime__title {
+    font-size: 16px;
+    line-height: 1.1;
+  }
+
+  .hall__screen {
+    font-size: 16px;
+    line-height: 1.1;
+  }
+
+  .seat__mask {
+    width: 20px;
+    height: 20px;
+  }
+
+  .hall__legend {
+    flex-wrap: wrap;
+  }
+
+  .shoppingCart {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .calendar__listItem {
+    margin: 0 5px;
+  }
+
+   .seat__mask {
+    width: 18px;
+    height: 18px;
+
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 325px) {
+  .textContent__description{
+    font-size: 12px;
+  }
 }
