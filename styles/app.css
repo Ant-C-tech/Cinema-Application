@@ -3,8 +3,8 @@
   --secondary-color: #9db09a;
   --main-shadow-color: rgba(0, 0, 0, 0.6);
 
-  --main-font-color: #9b9a9a;
-  --active-font-color: #3a3a3a;
+  --main-font-color: #7c7c7c;
+  --active-font-color: #353434;
 
   --main-font: "Montserrat", sans-serif;
   --secondary-font: "Rubik", sans-serif;
@@ -209,6 +209,7 @@ main {
 }
 
 .movieType__listItemLink-active {
+  font-weight: bold;
   color: var(--active-font-color);
 }
 
@@ -240,6 +241,7 @@ main {
 
 .flexRow {
   display: flex;
+  align-items: center;
   margin-bottom: 50px;
 }
 
@@ -268,7 +270,9 @@ main {
 }
 
 .calendar__listItemLink {
+  display: block;
   text-decoration: none;
+  text-align: center;
 
   font-size: 20px;
   font-weight: normal;
@@ -278,7 +282,40 @@ main {
 }
 
 .calendar__listItemLink-active {
+  font-weight: bold;
   color: var(--active-font-color);
+}
+
+.calendar__listItemLink-disabled {
+  color: var(--secondary-color);
+  opacity: 0.4;
+}
+
+.calendar__supText {
+  padding-bottom: 3px;
+
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.5;
+  font-family: var(--main-font);
+  color: var(--main-font-color);
+}
+
+
+.calendar__supText-active {
+  padding-bottom: 3px;
+
+  font-weight: bold;
+  color: var(--active-font-color);
+}
+
+.calendar__supText-today {
+  border-bottom: 1px solid var(--main-font-color);
+}
+
+.calendar__supText-disable {
+  padding-bottom: 3px;
+  color: var(--secondary-color);
 }
 
 .btn-nextDay {
