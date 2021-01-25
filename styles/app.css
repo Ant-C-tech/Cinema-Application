@@ -432,13 +432,16 @@ main {
   overflow: hidden;
 }
 
-.hall__legend{
+.hall__legend {
   display: flex;
   justify-content: space-around;
+  align-items: center;
 }
 
-.hall__legendItem{
+.hall__legendItem {
   position: relative;
+  display: block;
+
   font-size: 14px;
   font-weight: normal;
   line-height: 1.5;
@@ -446,7 +449,7 @@ main {
   color: var(--main-font-color);
 }
 
-.hall__legendItem::before{
+.hall__legendItem::before {
   position: absolute;
   content: "";
   bottom: 6px;
@@ -458,14 +461,33 @@ main {
   border-radius: 2px;
 }
 
-.hall__legendItem-available::before{
-    background: #fff;
+.hall__legendItem-available::before {
+  background: #fff;
 }
 
-.hall__legendItem-taken::before{
-    background: var(--main-font-color);
+.hall__legendItem-taken::before {
+  background: var(--main-font-color);
 }
 
-.hall__legendItem-selection::before{
-    background: var(--secondary-color);
+.hall__legendItem-selection::before {
+  background: var(--secondary-color);
+}
+
+.shoppingCart {
+  padding: 2px 15px;
+
+  text-align: center;
+  font-family: var(--secondary-font);
+  color: var(--main-color);
+  font-weight: bold;
+
+  border: 3px solid rgba(0, 0, 0, 0.4);
+  border-radius: 5%;
+  box-shadow: 2px 2px 18px var(--secondary-color);
+
+  background: var(--secondary-color);
+}
+
+.shoppingCart__img {
+  width: 20px;
 }
