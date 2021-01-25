@@ -166,9 +166,8 @@ main {
   background-color: var(--main-color);
 }
 
-.movieType,
-.movieTime {
-  margin-bottom: 30px;
+.movieType {
+  margin-bottom: 50px;
 }
 
 .movieType__list,
@@ -234,12 +233,11 @@ main {
 }
 
 .movieDate {
-  margin-bottom: 40px;
+  margin-bottom: 15px;
 }
 
 .movieDate__title,
 .movieTime__title {
-  margin-bottom: 10px;
   text-decoration: none;
 
   font-size: 25px;
@@ -252,7 +250,6 @@ main {
 .flexRow {
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
 }
 
 .btn-prevDay {
@@ -340,4 +337,43 @@ main {
   text-decoration: none;
   color: var(--active-font-color);
   font-size: 20px;
+}
+
+.movieTime {
+  margin-bottom: 45px;
+}
+
+.hall {
+}
+
+.hall__screen {
+  position: relative;
+  margin-bottom: 10px;
+  text-decoration: none;
+
+  text-align: center;
+  font-size: 25px;
+  font-weight: normal;
+  line-height: 1.5;
+  font-family: var(--main-font);
+  color: var(--active-font-color);
+
+  border-bottom: 3px solid var(--main-font-color);
+}
+
+.hall__screen::after {
+  position: absolute;
+  content: "";
+  bottom: -52px;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  width: 100%;
+  height: 50px;
+
+  background: linear-gradient(
+    rgba(157, 176, 154, 0.7) 5%,
+    rgba(157, 176, 154, 0.4) 30%,
+    rgba(157, 176, 154, 0.2) 50%,
+    rgba(157, 176, 154, 0) 70%
+  );
 }
