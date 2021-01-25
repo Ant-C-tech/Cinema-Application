@@ -212,6 +212,17 @@ main {
   color: var(--active-font-color);
 }
 
+.movieType__listItemLink-disabled {
+  color: var(--secondary-color);
+  opacity: 0.4;
+}
+
+.movieType__listItem-disabled::after {
+  height: 1px;
+  background: var(--secondary-color);
+  opacity: 0.4;
+}
+
 .movieDate {
   margin-bottom: 50px;
 }
@@ -229,7 +240,6 @@ main {
 
 .flexRow {
   display: flex;
-  /* justify-content: space-between; */
   margin-bottom: 50px;
 }
 
