@@ -166,21 +166,25 @@ main {
   background-color: var(--main-color);
 }
 
-.movieType {
-  margin-bottom: 50px;
+.movieType,
+.movieTime {
+  margin-bottom: 30px;
 }
 
-.movieType__list {
+.movieType__list,
+.movieTime__list {
   display: flex;
   justify-content: space-between;
 }
 
-.movieType__listItem {
+.movieType__listItem,
+.movieTime__listItem {
   position: relative;
   list-style-type: none;
 }
 
-.movieType__listItem::after {
+.movieType__listItem::after,
+.movieTime__listItem::after {
   position: absolute;
   content: "";
   bottom: -8px;
@@ -192,13 +196,15 @@ main {
   box-shadow: 4px 4px 8px var(--main-font-color);
 }
 
-.movieType__listItem-active::after {
+.movieType__listItem-active::after,
+.movieTime__listItem-active::after {
   height: 3px;
   background: var(--secondary-color);
   box-shadow: 3px 3px 5px var(--secondary-color);
 }
 
-.movieType__listItemLink {
+.movieType__listItemLink,
+.movieTime__listItemLink {
   text-decoration: none;
 
   font-size: 20px;
@@ -208,27 +214,31 @@ main {
   color: var(--main-font-color);
 }
 
-.movieType__listItemLink-active {
+.movieType__listItemLink-active,
+.movieTime__listItemLink-active {
   font-weight: bold;
   color: var(--active-font-color);
 }
 
-.movieType__listItemLink-disabled {
+.movieType__listItemLink-disabled,
+.movieTime__listItemLink-disabled {
   color: var(--secondary-color);
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
-.movieType__listItem-disabled::after {
+.movieType__listItem-disabled::after,
+.movieTime__listItem-disabled::after {
   height: 1px;
   background: var(--secondary-color);
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 .movieDate {
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
-.movieDate__title {
+.movieDate__title,
+.movieTime__title {
   margin-bottom: 10px;
   text-decoration: none;
 
@@ -242,7 +252,7 @@ main {
 .flexRow {
   display: flex;
   align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .btn-prevDay {
@@ -288,7 +298,7 @@ main {
 
 .calendar__listItemLink-disabled {
   color: var(--secondary-color);
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 .calendar__supText {
@@ -301,7 +311,6 @@ main {
   color: var(--main-font-color);
 }
 
-
 .calendar__supText-active {
   padding-bottom: 3px;
 
@@ -310,11 +319,14 @@ main {
 }
 
 .calendar__supText-today {
+  padding-bottom: 3px;
+
   border-bottom: 1px solid var(--main-font-color);
 }
 
-.calendar__supText-disable {
+.calendar__supText-disabled {
   padding-bottom: 3px;
+
   color: var(--secondary-color);
 }
 
