@@ -140,6 +140,10 @@ main {
 .btn-readMore {
   display: block;
 
+  width: -webkit-fit-content;
+
+  width: -moz-fit-content;
+
   width: fit-content;
   margin: 0 auto;
 
@@ -269,6 +273,10 @@ main {
 .btn-prevDay {
   display: block;
 
+  width: -webkit-fit-content;
+
+  width: -moz-fit-content;
+
   width: fit-content;
   margin-right: 15px;
   padding-top: 4px;
@@ -343,6 +351,10 @@ main {
 
 .btn-nextDay {
   display: block;
+
+  width: -webkit-fit-content;
+
+  width: -moz-fit-content;
 
   width: fit-content;
   margin-left: 15px;
