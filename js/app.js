@@ -45,3 +45,5 @@ buyTicketButton.addEventListener("transitionend", (e) => e.stopPropagation());
 buyTicketButton.addEventListener("click", () => {
   showNextScreen(choosingSeatSection, confirmTicketSection);
 })
+
+//Если высота модального окна больше высоты боди - делать боде height:auto;

@@ -54,6 +54,10 @@
   justify-content: space-between;
 }
 
+.flexRow-center {
+  justify-content: center;
+}
+
 body {
   display: flex;
   align-items: center;
@@ -604,7 +608,7 @@ body {
   background: var(--secondary-color);
 }
 
-.shoppingCart {
+.siteButton {
   padding: 2px 15px;
 
   text-align: center;
@@ -621,13 +625,13 @@ body {
   transition: transform ease-in-out 0.3s;
 }
 
-.shoppingCart:hover,
-.shoppingCart:focus {
+.siteButton:hover,
+.siteButton:focus {
   outline: none;
   transform: scale(1.2);
 }
 
-.shoppingCart__img {
+.siteButton__img {
   width: 20px;
 }
 /* /Hall Section */
@@ -652,18 +656,70 @@ body {
 }
 
 .confirmTicket__title {
+  position: relative;
   text-align: center;
 
-  font-size: 25px;
+  margin-bottom: 40px;
+
+  font-size: 40px;
   font-weight: bold;
   line-height: 1.5;
   font-family: var(--main-font);
   color: var(--main-font-color);
+
+  border-bottom: 3px solid var(--main-font-color);
+}
+
+.confirmTicket__title::after {
+  position: absolute;
+  content: "";
+  bottom: -52px;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  width: 100%;
+  height: 50px;
+
+  background: linear-gradient(
+    rgba(157, 176, 154, 0.7) 5%,
+    rgba(157, 176, 154, 0.4) 30%,
+    rgba(157, 176, 154, 0.2) 50%,
+    rgba(157, 176, 154, 0) 70%
+  );
+}
+
+.orderFlexWrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  position: relative;
+
+  padding-bottom: 40px;
+
+  border-bottom: 3px solid var(--main-font-color);
+}
+
+.orderFlexWrapper::after {
+  position: absolute;
+  content: "";
+  bottom: 0px;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  width: 100%;
+  height: 50px;
+
+  background: linear-gradient(
+    rgba(157, 176, 154, 0) 5%,
+    rgba(157, 176, 154, 0.2) 30%,
+    rgba(157, 176, 154, 0.4) 50%,
+    rgba(157, 176, 154, 0.7) 70%
+  );
 }
 
 /* Ticket */
 .ticket {
   display: flex;
+
+  margin: 15px;
 
   border: 3px solid var(--main-font-color);
 }
@@ -671,6 +727,8 @@ body {
 .ticket__number {
   display: flex;
   flex-direction: column-reverse;
+
+  background: var(--secondary-color);
 }
 
 .ticket__number-top {
@@ -682,17 +740,17 @@ body {
 }
 
 .ticket__numberTitle {
-  padding: 10px 0;
+  padding: 15px 0;
 
-  font-size: 16px;
+  text-align: center;
+
+  font-size: 13px;
   font-weight: normal;
   line-height: 1.5;
   font-family: var(--main-font);
   color: var(--active-font-color);
   writing-mode: tb-rl;
   transform: rotate(180deg);
-
-  background: var(--secondary-color);
 }
 
 .ticket__bodyTopSection {
@@ -706,12 +764,14 @@ body {
   align-items: center;
 
   padding: 0 10px;
+
+  border-right: 5px dotted var(--secondary-color);
 }
 
 .ticket__barcode {
   display: block;
 
-  width: 70px;
+  width: 55px;
 
   transform: rotate(90deg);
 }
@@ -731,7 +791,6 @@ body {
   justify-content: space-between;
   position: relative;
 
-  width: 500px;
   padding: 10px;
 
   background-image: url(../img/poster_bg.jpg);
@@ -743,7 +802,6 @@ body {
 
   top: 0;
   left: 0;
-  /* z-index: 15; */
 
   width: 100%;
   height: 100%;
@@ -774,6 +832,7 @@ body {
 .ticket__bodyTitle {
   position: relative;
   margin-top: 60px;
+  margin-left: 60px;
   z-index: 100;
 
   font-size: 30px;
@@ -783,7 +842,96 @@ body {
   color: var(--main-color);
 }
 
+.ticket__bodyBottomSection {
+  display: flex;
+}
+
+.ticket__bodyCinemaBrandBox {
+  display: flex;
+  align-items: center;
+
+  padding: 10px;
+
+  border-right: 5px dotted var(--secondary-color);
+}
+
+.ticket__cinemaBrand {
+  display: block;
+  width: 65px;
+}
+
+.ticket__bodyMovieData {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  padding: 0 10px;
+
+  border-right: 3px solid var(--main-font-color);
+}
+
+.ticket__bodyMovieTitle,
+.ticket__bodyHallType {
+  padding: 5px;
+
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 1;
+  font-family: var(--main-font);
+  color: var(--active-font-color);
+
+  border-radius: 5px;
+
+  background: var(--secondary-color);
+}
+
+.ticket__bodyMovieDate {
+  border-right: 3px solid var(--main-font-color);
+}
+
+.badge-ticket {
+  position: static;
+
+  margin: 8px 10px;
+}
+
+.ticket__bodyMovieSeat {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 10px;
+}
+
+.ticket__bodyMovieSeatTitle {
+  font-size: 18px;
+  font-weight: normal;
+  line-height: 1;
+  font-family: var(--main-font);
+  color: var(--active-font-color);
+}
+
+.ticket__bodyMovieSeatNumber {
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 1.5;
+  font-family: var(--main-font);
+  color: var(--main-font-color);
+}
 /* Ticket */
+
+.siteButton-text {
+  margin: 30px;
+  padding: 10px 20px;
+
+  text-decoration: none;
+
+  color: var(--active-font-color);
+}
+
 /* ========== /Confirm Ticket Section =========== */
 
 /* ========== Classes for interaction ========== */
@@ -970,7 +1118,8 @@ body {
     padding: 0px 0px;
   }
 
-  .choosingSeat {
+  .choosingSeat,
+  .confirmTicket {
     border: none;
     border-radius: 0;
     box-shadow: none;
@@ -1052,7 +1201,7 @@ body {
     flex-wrap: wrap;
   }
 
-  .shoppingCart {
+  .siteButton {
     width: 100%;
     margin: 20px 5px 0;
   }
