@@ -109,7 +109,8 @@
       <source src="video/trailer.mp4" type="video/mp4" />
     </video>
 
-    <main>
+    <!-- =============== Choosing Seat Section ============ -->
+    <section id="choosingSeat" class="choosingSeat">
       <!-- =============== Poster Section ============ -->
       <section class="posterSection">
         <div class="textContent">
@@ -839,7 +840,7 @@
           <p class="hall__legendItem hall__legendItem-selection">
             Your selection
           </p>
-          <a class="shoppingCart" href="#"
+          <a id="buyTicket" class="shoppingCart" href="#"
             ><img
               class="shoppingCart__img"
               src="img/shopping-cart.svg"
@@ -849,6 +850,15 @@
         <!-- /Hall Legend Section -->
       </section>
       <!-- =============== /Control Section ============ -->
-    </main>
+    </section>
+    <!-- =============== /Choosing Seat Section ============ -->
+
+
+    <section id="confirmTicket" class="confirmTicket d-none">
+      <h3 class="confirmTicket__title">Movie night</h3>
+      <h3 class="confirmTicket__subtitle"></h3>
+    </section>
+
+    <script defer src="./js/app.js"></script>
   </body>
 </html>

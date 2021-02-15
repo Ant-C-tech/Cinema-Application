@@ -72,7 +72,8 @@ body {
   min-height: 100%;
 }
 
-main {
+/* ========== Choosing Seat Section =========== */
+.choosingSeat {
   position: relative;
   display: flex;
   z-index: 10;
@@ -85,6 +86,8 @@ main {
   border: 2px solid var(--secondary-color);
   border-radius: 10px;
   box-shadow: 5px 9px 20px var(--main-shadow-color);
+
+  transition: transform ease-in-out 0.7s;
 }
 
 /* ========== Poster Section =========== */
@@ -615,7 +618,7 @@ main {
 
   background: var(--secondary-color);
 
-  transition: all ease-in-out 0.3s;
+  transition: transform ease-in-out 0.3s;
 }
 
 .shoppingCart:hover,
@@ -629,6 +632,61 @@ main {
 }
 /* /Hall Section */
 /* ========== /Control Section ========== */
+/* ========== /Choosing Seat Section =========== */
+
+/* ========== Confirm Ticket Section =========== */
+.confirmTicket {
+  position: relative;
+  height: 300px;
+  width: 1270px;
+
+  /* max-width: 1270px; */
+  z-index: 10;
+
+  overflow: hidden;
+  margin: 0 auto;
+
+  border: 2px solid var(--secondary-color);
+  border-radius: 10px;
+  box-shadow: 5px 9px 20px var(--main-shadow-color);
+  background: var(--main-color);
+
+}
+/* ========== /Confirm Ticket Section =========== */
+
+/* ========== Classes for interaction ========== */
+.hideAnimationForNextScreen {
+  animation: hideElementForNextScreen 0.7s
+}
+
+.showAnimationForNextScreen {
+  animation: showElementForNextScreen 0.7s
+}
+
+.d-none {
+  display: none;
+}
+
+@keyframes hideElementForNextScreen {
+  0% {
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+
+  100% {
+    transform: rotate3d(0, 1, 0, 90deg);
+  }
+}
+
+@keyframes showElementForNextScreen {
+  0% {
+    transform: rotate3d(0, 1, 0, -90deg);
+  }
+
+  100% {
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+}
+/* ========== /Classes for interaction ========== */
 
 /* ========== Media ========== */
 @media screen and (max-width: 1130px) {
@@ -738,7 +796,7 @@ main {
     display: none;
   }
 
-  main {
+  .choosingSeat {
     flex-wrap: wrap;
   }
 
@@ -780,7 +838,7 @@ main {
     padding: 0px 0px;
   }
 
-  main {
+  .choosingSeat {
     border: none;
     border-radius: 0;
     box-shadow: none;
