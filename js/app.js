@@ -3,6 +3,7 @@
 const buyTicketButton = document.querySelector("#buyTicket");
 const choosingSeatSection = document.querySelector("#choosingSeat");
 const confirmTicketSection = document.querySelector("#confirmTicket");
+const movieTitle = document.querySelector("#movieTitle");
 
 const addClassToElement = (element, className) => {
   element.classList.add(`${className}`);
@@ -33,6 +34,10 @@ const showNextScreen = (currentElement, nextElement) => {
     );
   addClassToElement(currentElement, "hideAnimationForNextScreen");
 };
+
+const fillTicketWithData = () => {
+
+}
 
 
 buyTicketButton.addEventListener("transitionend", (e) => e.stopPropagation());

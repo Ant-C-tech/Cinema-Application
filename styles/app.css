@@ -637,30 +637,162 @@ body {
 /* ========== Confirm Ticket Section =========== */
 .confirmTicket {
   position: relative;
-  height: 300px;
-  width: 1270px;
 
-  /* max-width: 1270px; */
+  max-width: 1270px;
   z-index: 10;
 
   overflow: hidden;
   margin: 0 auto;
+  padding: 15px;
 
   border: 2px solid var(--secondary-color);
   border-radius: 10px;
   box-shadow: 5px 9px 20px var(--main-shadow-color);
   background: var(--main-color);
-
 }
+
+.confirmTicket__title {
+  text-align: center;
+
+  font-size: 25px;
+  font-weight: bold;
+  line-height: 1.5;
+  font-family: var(--main-font);
+  color: var(--main-font-color);
+}
+
+/* Ticket */
+.ticket {
+  display: flex;
+
+  border: 3px solid var(--main-font-color);
+}
+
+.ticket__number {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.ticket__number-top {
+  border-right: 3px solid var(--main-font-color);
+}
+
+.ticket__number-bottom {
+  border-left: 3px solid var(--main-font-color);
+}
+
+.ticket__numberTitle {
+  padding: 10px 0;
+
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.5;
+  font-family: var(--main-font);
+  color: var(--active-font-color);
+  writing-mode: tb-rl;
+  transform: rotate(180deg);
+
+  background: var(--secondary-color);
+}
+
+.ticket__bodyTopSection {
+  display: flex;
+
+  border-bottom: 3px solid var(--main-font-color);
+}
+
+.ticket__bodyBarcode {
+  display: flex;
+  align-items: center;
+
+  padding: 0 10px;
+}
+
+.ticket__barcode {
+  display: block;
+
+  width: 70px;
+
+  transform: rotate(90deg);
+}
+
+.ticket__barcodeValue {
+  font-size: 10px;
+  font-weight: normal;
+  line-height: 1;
+  font-family: var(--main-font);
+  color: var(--active-font-color);
+  writing-mode: tb-rl;
+  transform: rotate(180deg);
+}
+
+.ticket__bodyImg {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  width: 500px;
+  padding: 10px;
+
+  background-image: url(../img/poster_bg.jpg);
+}
+
+.ticket__bodyImg::after {
+  position: absolute;
+  content: "";
+
+  top: 0;
+  left: 0;
+  /* z-index: 15; */
+
+  width: 100%;
+  height: 100%;
+
+  background: linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 9) 5%,
+    rgba(0, 0, 0, 0.7) 40%,
+    rgba(0, 0, 0, 0.4) 70%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.ticket__bodySubTitle {
+  position: relative;
+  z-index: 100;
+
+  text-align: center;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1;
+  font-family: var(--main-font);
+  color: var(--main-color);
+  writing-mode: tb-rl;
+  transform: rotate(180deg);
+}
+
+.ticket__bodyTitle {
+  position: relative;
+  margin-top: 60px;
+  z-index: 100;
+
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 1.5;
+  font-family: var(--main-font);
+  color: var(--main-color);
+}
+
+/* Ticket */
 /* ========== /Confirm Ticket Section =========== */
 
 /* ========== Classes for interaction ========== */
 .hideAnimationForNextScreen {
-  animation: hideElementForNextScreen 0.7s
+  animation: hideElementForNextScreen 0.7s;
 }
 
 .showAnimationForNextScreen {
-  animation: showElementForNextScreen 0.7s
+  animation: showElementForNextScreen 0.7s;
 }
 
 .d-none {
