@@ -639,7 +639,8 @@ body {
 /* ========== /Choosing Seat Section =========== */
 
 /* ========== Confirm Ticket Section =========== */
-.confirmTicket {
+.confirmTicket,
+.movieDescription {
   position: relative;
 
   max-width: 1270px;
@@ -655,7 +656,8 @@ body {
   background: var(--main-color);
 }
 
-.confirmTicket__title {
+.confirmTicket__title,
+.movieDescription__title {
   position: relative;
   text-align: center;
 
@@ -670,7 +672,8 @@ body {
   border-bottom: 3px solid var(--main-font-color);
 }
 
-.confirmTicket__title::after {
+.confirmTicket__title::after,
+.movieDescription__title::after {
   position: absolute;
   content: "";
   bottom: -52px;
@@ -687,7 +690,8 @@ body {
   );
 }
 
-.orderFlexWrapper {
+.orderFlexWrapper,
+.movieDescription__content {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -698,7 +702,8 @@ body {
   border-bottom: 3px solid var(--main-font-color);
 }
 
-.orderFlexWrapper::after {
+.orderFlexWrapper::after,
+.movieDescription__content::after {
   position: absolute;
   content: "";
   bottom: 0px;
@@ -949,13 +954,36 @@ body {
 
 /* ========== /Confirm Ticket Section =========== */
 
-/* ========== Classes for interaction ========== */
-.hideAnimationForNextScreen {
-  animation: hideElementForNextScreen 0.7s;
+/* ========== Movie Description Section =========== */
+.movieDescription__content {
+  display: block;
+  padding: 0 20px 40px;
 }
 
-.showAnimationForNextScreen {
-  animation: showElementForNextScreen 0.7s;
+.movieDescription__element {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1.5;
+  font-family: var(--main-font);
+  color: var(--main-font-color);
+}
+/* ========== /Movie Description Section =========== */
+
+/* ========== Classes for interaction ========== */
+.hideAnimationForNextScreenHorizontal {
+  animation: hideElementForNextScreenHorizontal 0.7s;
+}
+
+.showAnimationForNextScreenHorizontal {
+  animation: showElementForNextScreenHorizontal 0.7s;
+}
+
+.hideAnimationForNextScreenVertical {
+  animation: hideElementForNextScreenVertical 0.7s;
+}
+
+.showAnimationForNextScreenVertical {
+  animation: showElementForNextScreenVertical 0.7s;
 }
 
 .d-none {
@@ -966,7 +994,7 @@ body {
   height: auto;
 }
 
-@keyframes hideElementForNextScreen {
+@keyframes hideElementForNextScreenHorizontal {
   0% {
     transform: rotate3d(0, 1, 0, 0deg);
   }
@@ -976,13 +1004,33 @@ body {
   }
 }
 
-@keyframes showElementForNextScreen {
+@keyframes showElementForNextScreenHorizontal {
   0% {
     transform: rotate3d(0, 1, 0, -90deg);
   }
 
   100% {
     transform: rotate3d(0, 1, 0, 0deg);
+  }
+}
+
+@keyframes hideElementForNextScreenVertical {
+  0% {
+    transform: rotate3d(1, 0, 0, 0deg);
+  }
+
+  100% {
+    transform: rotate3d(1, 0, 0, 90deg);
+  }
+}
+
+@keyframes showElementForNextScreenVertical {
+  0% {
+    transform: rotate3d(1, 0, 0, -90deg);
+  }
+
+  100% {
+    transform: rotate3d(1, 0, 0, 0deg);
   }
 }
 /* ========== /Classes for interaction ========== */
@@ -1138,7 +1186,8 @@ body {
   }
 
   .choosingSeat,
-  .confirmTicket {
+  .confirmTicket,
+  .movieDescription {
     border: none;
     border-radius: 0;
     box-shadow: none;
@@ -1148,7 +1197,8 @@ body {
     padding: 20px 30px;
   }
 
-  .confirmTicket {
+  .confirmTicket,
+  .movieDescription {
     margin: 0;
   }
 
@@ -1283,11 +1333,12 @@ body {
     margin: 20px 5px 0;
   }
 
-  .confirmTicket__title{
+  .confirmTicket__title,
+  .movieDescription__title {
     font-size: 30px;
   }
 
-  .ticket{
+  .ticket {
     margin: 8px 15px;
   }
 }
@@ -1328,7 +1379,7 @@ body {
     font-size: 10px;
   }
 
-  .ticket__numberTitle{
+  .ticket__numberTitle {
     font-size: 8px;
   }
 
@@ -1349,7 +1400,6 @@ body {
     font-size: 12px;
     margin-left: 10px;
   }
-
 }
 
 @media screen and (max-width: 325px) {

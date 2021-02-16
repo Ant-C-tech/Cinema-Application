@@ -122,7 +122,7 @@
             takes them back to where they started, leading them on a
             mind-bending trip, trapped in a surreal nightmare.
           </p>
-          <a href="#" class="btnReadMore">&#9660;</a>
+          <a href="#" id="btnReadMore" class="btnReadMore">&#9660;</a>
         </div>
 
         <a
@@ -152,13 +152,13 @@
       <!-- =============== Control Section ============ -->
       <section class="controlSection">
         <!-- Movie Type Section -->
-        <section class="movieType">
+        <section id="hallType" class="movieType">
           <label class="movieType__radio">
             <input
               class="movieType__radioInput visually-hidden"
               type="radio"
               name="movie-type"
-              value="general"
+              value="General"
             />
 
             <span class="movieType__radioText">General</span>
@@ -169,7 +169,7 @@
               class="movieType__radioInput visually-hidden"
               type="radio"
               name="movie-type"
-              value="digital-2d"
+              value="Digital-2D"
             />
 
             <span class="movieType__radioText">Digital 2D</span>
@@ -180,7 +180,7 @@
               class="movieType__radioInput visually-hidden"
               type="radio"
               name="movie-type"
-              value="imax-3d"
+              value="IMAX-3D"
             />
             <span class="movieType__radioText">IMAX 3D</span>
           </label>
@@ -190,7 +190,7 @@
               class="movieType__radioInput visually-hidden"
               type="radio"
               name="movie-type"
-              value="cinema 4dx"
+              value="Cinema 4Dx"
               disabled
             />
             <span class="movieType__radioText">Cinema 4Dx</span>
@@ -199,7 +199,7 @@
         <!-- /Movie Type Section -->
 
         <!-- Movie Date Section -->
-        <section class="movieDate">
+        <section id="movieDate" class="movieDate">
           <p class="movieDate__currentTime">
             <time datetime="2021-03-02">Tue, 2 March</time>
           </p>
@@ -328,7 +328,7 @@
         <!-- /Movie Time Section -->
 
         <!-- Hall Section -->
-        <section class="hall">
+        <section id="hall" class="hall">
           <p class="hall__screen">Screen</p>
 
           <!-- Hall Raw -->
@@ -337,7 +337,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#1"
+                value="1"
                 disabled
               />
               <span class="seat__mask">1</span>
@@ -346,7 +346,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#2"
+                value="2"
                 disabled
               />
               <span class="seat__mask">2</span>
@@ -355,7 +355,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#3"
+                value="3"
                 disabled
               />
               <span class="seat__mask">3</span>
@@ -364,7 +364,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#4"
+                value="4"
               />
               <span class="seat__mask">4</span>
             </label>
@@ -372,7 +372,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#5"
+                value="5"
               />
               <span class="seat__mask">5</span>
             </label>
@@ -380,7 +380,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#6"
+                value="6"
               />
               <span class="seat__mask">6</span>
             </label>
@@ -388,7 +388,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#7"
+                value="7"
                 disabled
               />
               <span class="seat__mask">7</span>
@@ -397,7 +397,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#8"
+                value="8"
                 disabled
               />
               <span class="seat__mask">8</span>
@@ -411,7 +411,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#9"
+                value="9"
               />
               <span class="seat__mask">9</span>
             </label>
@@ -419,7 +419,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#10"
+                value="10"
               />
               <span class="seat__mask">10</span>
             </label>
@@ -427,7 +427,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#11"
+                value="11"
                 disabled
               />
               <span class="seat__mask">11</span>
@@ -436,7 +436,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#12"
+                value="12"
                 disabled
               />
               <span class="seat__mask">12</span>
@@ -445,7 +445,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#13"
+                value="13"
               />
               <span class="seat__mask">13</span>
             </label>
@@ -453,7 +453,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#14"
+                value="14"
                 disabled
               />
               <span class="seat__mask">14</span>
@@ -462,7 +462,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#15"
+                value="15"
               />
               <span class="seat__mask">15</span>
             </label>
@@ -470,7 +470,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#16"
+                value="16"
               />
               <span class="seat__mask">16</span>
             </label>
@@ -478,7 +478,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#17"
+                value="17"
               />
               <span class="seat__mask">17</span>
             </label>
@@ -486,7 +486,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#18"
+                value="18"
                 disabled
               />
               <span class="seat__mask">18</span>
@@ -495,7 +495,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#19"
+                value="19"
               />
               <span class="seat__mask">19</span>
             </label>
@@ -503,7 +503,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#20"
+                value="20"
                 disabled
               />
               <span class="seat__mask">20</span>
@@ -517,7 +517,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#21"
+                value="21"
               />
               <span class="seat__mask">21</span>
             </label>
@@ -525,7 +525,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#22"
+                value="22"
               />
               <span class="seat__mask">22</span>
             </label>
@@ -533,7 +533,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#23"
+                value="23"
                 disabled
               />
               <span class="seat__mask">23</span>
@@ -542,7 +542,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#24"
+                value="24"
                 disabled
               />
               <span class="seat__mask">24</span>
@@ -551,7 +551,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#25"
+                value="25"
                 disabled
               />
               <span class="seat__mask">25</span>
@@ -560,7 +560,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#26"
+                value="26"
                 disabled
               />
               <span class="seat__mask">26</span>
@@ -569,7 +569,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#27"
+                value="27"
               />
               <span class="seat__mask">27</span>
             </label>
@@ -577,7 +577,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#28"
+                value="28"
               />
               <span class="seat__mask">28</span>
             </label>
@@ -585,7 +585,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#29"
+                value="29"
               />
               <span class="seat__mask">29</span>
             </label>
@@ -593,7 +593,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#30"
+                value="30"
                 disabled
               />
               <span class="seat__mask">30</span>
@@ -602,7 +602,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#31"
+                value="31"
                 disabled
               />
               <span class="seat__mask">31</span>
@@ -611,7 +611,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#32"
+                value="32"
               />
               <span class="seat__mask">32</span>
             </label>
@@ -624,7 +624,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#33"
+                value="33"
                 disabled
               />
               <span class="seat__mask">33</span>
@@ -633,7 +633,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#34"
+                value="34"
               />
               <span class="seat__mask">34</span>
             </label>
@@ -641,7 +641,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#35"
+                value="35"
                 disabled
               />
               <span class="seat__mask">35</span>
@@ -650,7 +650,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#36"
+                value="36"
                 disabled
               />
               <span class="seat__mask">36</span>
@@ -659,7 +659,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#37"
+                value="37"
               />
               <span class="seat__mask">37</span>
             </label>
@@ -667,7 +667,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#38"
+                value="38"
               />
               <span class="seat__mask">38</span>
             </label>
@@ -675,7 +675,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#39"
+                value="39"
                 disabled
               />
               <span class="seat__mask">39</span>
@@ -684,7 +684,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#40"
+                value="40"
                 disabled
               />
               <span class="seat__mask">40</span>
@@ -693,7 +693,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#41"
+                value="41"
                 disabled
               />
               <span class="seat__mask">41</span>
@@ -702,7 +702,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#42"
+                value="42"
               />
               <span class="seat__mask">42</span>
             </label>
@@ -710,7 +710,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#43"
+                value="43"
               />
               <span class="seat__mask">43</span>
             </label>
@@ -718,7 +718,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#44"
+                value="44"
               />
               <span class="seat__mask">44</span>
             </label>
@@ -731,7 +731,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#45"
+                value="45"
               />
               <span class="seat__mask">45</span>
             </label>
@@ -739,7 +739,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#46"
+                value="46"
               />
               <span class="seat__mask">46</span>
             </label>
@@ -747,7 +747,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#47"
+                value="47"
               />
               <span class="seat__mask">47</span>
             </label>
@@ -755,7 +755,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#48"
+                value="48"
                 disabled
               />
               <span class="seat__mask">48</span>
@@ -764,7 +764,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#49"
+                value="49"
                 disabled
               />
               <span class="seat__mask">49</span>
@@ -773,7 +773,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#50"
+                value="50"
                 disabled
               />
               <span class="seat__mask">50</span>
@@ -782,7 +782,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#51"
+                value="51"
                 disabled
               />
               <span class="seat__mask">51</span>
@@ -791,7 +791,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#52"
+                value="52"
               />
               <span class="seat__mask">52</span>
             </label>
@@ -799,7 +799,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#53"
+                value="53"
               />
               <span class="seat__mask">53</span>
             </label>
@@ -807,7 +807,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#54"
+                value="54"
               />
               <span class="seat__mask">54</span>
             </label>
@@ -815,7 +815,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#55"
+                value="55"
               />
               <span class="seat__mask">55</span>
             </label>
@@ -823,7 +823,7 @@
               <input
                 class="seat__input visually-hidden"
                 type="checkbox"
-                value="#56"
+                value="56"
                 disabled
               />
               <span class="seat__mask">56</span>
@@ -856,229 +856,29 @@
     <!-- =============== Confirm Ticket Section ============ -->
     <section id="confirmTicket" class="confirmTicket d-none">
       <h3 class="confirmTicket__title">Your order:</h3>
-      <div id="order" class="orderFlexWrapper">
-        <!-- Ticket  -->
-        <article class="ticket">
-          <div class="ticket__number ticket__number-top">
-            <p class="ticket__numberTitle">
-              TICKET NO: <span class="ticket__numberValue">01-02-356-79AB</span>
-            </p>
-          </div>
-          <div class="ticket__body">
-            <div class="ticket__bodyTopSection">
-              <div class="ticket__bodyBarcode">
-                <img
-                  class="ticket__barcode"
-                  src="./img/bar-code.svg"
-                  alt="barcode of your ticket"
-                />
-                <p class="ticket__barcodeValue">654189416541</p>
-              </div>
-              <div class="ticket__bodyImg">
-                <p class="ticket__bodySubTitle">ADMIT ONE</p>
-                <h4 class="ticket__bodyTitle">CINEMA TICKET</h4>
-              </div>
-            </div>
-            <div class="ticket__bodyBottomSection">
-              <div class="ticket__bodyCinemaBrandBox">
-                <img
-                  class="ticket__cinemaBrand"
-                  src="./img/clapperboard.svg"
-                  alt="cinema theater brand label - clapperboard"
-                />
-              </div>
-              <div class="ticket__bodyMovieData">
-                <p class="ticket__bodyMovieTitle">VIVARIUM</p>
-                <p class="ticket__bodyHallType">IMAX 3D</p>
-              </div>
-              <div class="ticket__bodyMovieDate">
-                <div class="badge badge-data badge-ticket">
-                  <p>Wed, 3</p>
-                  <p>20:00</p>
-                </div>
-              </div>
-              <div class="ticket__bodyMovieSeat">
-                <p class="ticket__bodyMovieSeatTitle">SEAT NO:</p>
-                <p class="ticket__bodyMovieSeatNumber">54</p>
-              </div>
-            </div>
-          </div>
-          <div class="ticket__number ticket__number-bottom">
-            <p class="ticket__numberTitle">
-              TICKET NO: <span class="ticket__numberValue">01-02-356-79AB</span>
-            </p>
-          </div>
-        </article>
-        <!-- /Ticket  -->
-
-        <!-- Ticket  -->
-        <article class="ticket">
-          <div class="ticket__number ticket__number-top">
-            <p class="ticket__numberTitle">
-              TICKET NO: <span class="ticket__numberValue">01-02-356-79AB</span>
-            </p>
-          </div>
-          <div class="ticket__body">
-            <div class="ticket__bodyTopSection">
-              <div class="ticket__bodyBarcode">
-                <img
-                  class="ticket__barcode"
-                  src="./img/bar-code.svg"
-                  alt="barcode of your ticket"
-                />
-                <p class="ticket__barcodeValue">654189416541</p>
-              </div>
-              <div class="ticket__bodyImg">
-                <p class="ticket__bodySubTitle">ADMIT ONE</p>
-                <h4 class="ticket__bodyTitle">CINEMA TICKET</h4>
-              </div>
-            </div>
-            <div class="ticket__bodyBottomSection">
-              <div class="ticket__bodyCinemaBrandBox">
-                <img
-                  class="ticket__cinemaBrand"
-                  src="./img/clapperboard.svg"
-                  alt="cinema theater brand label - clapperboard"
-                />
-              </div>
-              <div class="ticket__bodyMovieData">
-                <p class="ticket__bodyMovieTitle">VIVARIUM</p>
-                <p class="ticket__bodyHallType">IMAX 3D</p>
-              </div>
-              <div class="ticket__bodyMovieDate">
-                <div class="badge badge-data badge-ticket">
-                  <p>Wed, 3</p>
-                  <p>20:00</p>
-                </div>
-              </div>
-              <div class="ticket__bodyMovieSeat">
-                <p class="ticket__bodyMovieSeatTitle">SEAT NO:</p>
-                <p class="ticket__bodyMovieSeatNumber">54</p>
-              </div>
-            </div>
-          </div>
-          <div class="ticket__number ticket__number-bottom">
-            <p class="ticket__numberTitle">
-              TICKET NO: <span class="ticket__numberValue">01-02-356-79AB</span>
-            </p>
-          </div>
-        </article>
-        <!-- /Ticket  -->
-
-        <!-- Ticket  -->
-        <article class="ticket">
-          <div class="ticket__number ticket__number-top">
-            <p class="ticket__numberTitle">
-              TICKET NO: <span class="ticket__numberValue">01-02-356-79AB</span>
-            </p>
-          </div>
-          <div class="ticket__body">
-            <div class="ticket__bodyTopSection">
-              <div class="ticket__bodyBarcode">
-                <img
-                  class="ticket__barcode"
-                  src="./img/bar-code.svg"
-                  alt="barcode of your ticket"
-                />
-                <p class="ticket__barcodeValue">654189416541</p>
-              </div>
-              <div class="ticket__bodyImg">
-                <p class="ticket__bodySubTitle">ADMIT ONE</p>
-                <h4 class="ticket__bodyTitle">CINEMA TICKET</h4>
-              </div>
-            </div>
-            <div class="ticket__bodyBottomSection">
-              <div class="ticket__bodyCinemaBrandBox">
-                <img
-                  class="ticket__cinemaBrand"
-                  src="./img/clapperboard.svg"
-                  alt="cinema theater brand label - clapperboard"
-                />
-              </div>
-              <div class="ticket__bodyMovieData">
-                <p class="ticket__bodyMovieTitle">VIVARIUM</p>
-                <p class="ticket__bodyHallType">IMAX 3D</p>
-              </div>
-              <div class="ticket__bodyMovieDate">
-                <div class="badge badge-data badge-ticket">
-                  <p>Wed, 3</p>
-                  <p>20:00</p>
-                </div>
-              </div>
-              <div class="ticket__bodyMovieSeat">
-                <p class="ticket__bodyMovieSeatTitle">SEAT NO:</p>
-                <p class="ticket__bodyMovieSeatNumber">54</p>
-              </div>
-            </div>
-          </div>
-          <div class="ticket__number ticket__number-bottom">
-            <p class="ticket__numberTitle">
-              TICKET NO: <span class="ticket__numberValue">01-02-356-79AB</span>
-            </p>
-          </div>
-        </article>
-        <!-- /Ticket  -->
-
-        <!-- Ticket  -->
-        <article class="ticket">
-          <div class="ticket__number ticket__number-top">
-            <p class="ticket__numberTitle">
-              TICKET NO: <span class="ticket__numberValue">01-02-356-79AB</span>
-            </p>
-          </div>
-          <div class="ticket__body">
-            <div class="ticket__bodyTopSection">
-              <div class="ticket__bodyBarcode">
-                <img
-                  class="ticket__barcode"
-                  src="./img/bar-code.svg"
-                  alt="barcode of your ticket"
-                />
-                <p class="ticket__barcodeValue">654189416541</p>
-              </div>
-              <div class="ticket__bodyImg">
-                <p class="ticket__bodySubTitle">ADMIT ONE</p>
-                <h4 class="ticket__bodyTitle">CINEMA TICKET</h4>
-              </div>
-            </div>
-            <div class="ticket__bodyBottomSection">
-              <div class="ticket__bodyCinemaBrandBox">
-                <img
-                  class="ticket__cinemaBrand"
-                  src="./img/clapperboard.svg"
-                  alt="cinema theater brand label - clapperboard"
-                />
-              </div>
-              <div class="ticket__bodyMovieData">
-                <p class="ticket__bodyMovieTitle">VIVARIUM</p>
-                <p class="ticket__bodyHallType">IMAX 3D</p>
-              </div>
-              <div class="ticket__bodyMovieDate">
-                <div class="badge badge-data badge-ticket">
-                  <p>Wed, 3</p>
-                  <p>20:00</p>
-                </div>
-              </div>
-              <div class="ticket__bodyMovieSeat">
-                <p class="ticket__bodyMovieSeatTitle">SEAT NO:</p>
-                <p class="ticket__bodyMovieSeatNumber">54</p>
-              </div>
-            </div>
-          </div>
-          <div class="ticket__number ticket__number-bottom">
-            <p class="ticket__numberTitle">
-              TICKET NO: <span class="ticket__numberValue">01-02-356-79AB</span>
-            </p>
-          </div>
-        </article>
-        <!-- /Ticket  -->
-      </div>
+      <div id="orderListSection" class="orderFlexWrapper"></div>
       <div class="flexRow flexRow-center">
-          <a id="cancel" class="siteButton siteButton-text" href="#">Cancel</a>
-          <a id="confirm" class="siteButton siteButton-text" href="#">Confirm</a>
+        <a id="cancelTicketOrder" class="siteButton siteButton-text" href="#"
+          >Cancel</a
+        >
+        <a id="approveTicketOrder" class="siteButton siteButton-text" href="#"
+          >Confirm</a
+        >
       </div>
     </section>
     <!-- =============== Confirm Ticket Section ============ -->
+
+    <!-- =============== Movie Description Section ============ -->
+    <section id="movieDescriptionSection" class="movieDescription d-none">
+      <h3 id="movieDescriptionSectionTitle" class="movieDescription__title"></h3>
+      <div id="movieDescriptionSectionContent" class="movieDescription__content"></div>
+      <div class="flexRow flexRow-center">
+        <a id="cancelTicketOrder" class="siteButton siteButton-text" href="#"
+          >Back</a
+        >
+      </div>
+    </section>
+    <!-- =============== Movie Description Section ============ -->
 
     <script defer src="./js/app.js"></script>
   </body>
