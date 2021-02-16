@@ -646,7 +646,7 @@ body {
   z-index: 10;
 
   overflow: hidden;
-  margin: 0 auto;
+  margin: 40px auto;
   padding: 15px;
 
   border: 2px solid var(--secondary-color);
@@ -742,6 +742,7 @@ body {
 .ticket__numberTitle {
   padding: 15px 0;
 
+  margin: auto;
   text-align: center;
 
   font-size: 13px;
@@ -751,6 +752,10 @@ body {
   color: var(--active-font-color);
   writing-mode: tb-rl;
   transform: rotate(180deg);
+}
+
+.ticket__body {
+  max-width: 550px;
 }
 
 .ticket__bodyTopSection {
@@ -788,6 +793,7 @@ body {
 
 .ticket__bodyImg {
   display: flex;
+  flex-grow: 1;
   justify-content: space-between;
   position: relative;
 
@@ -835,6 +841,7 @@ body {
   margin-left: 60px;
   z-index: 100;
 
+  text-align: right;
   font-size: 30px;
   font-weight: bold;
   line-height: 1.5;
@@ -863,8 +870,8 @@ body {
 .ticket__bodyMovieData {
   display: flex;
   flex-direction: column;
+  flex-basis: 40%;
   justify-content: space-around;
-  align-items: center;
 
   padding: 0 10px;
 
@@ -873,8 +880,10 @@ body {
 
 .ticket__bodyMovieTitle,
 .ticket__bodyHallType {
+  margin: 5px 0;
   padding: 5px;
 
+  text-align: center;
   font-size: 18px;
   font-weight: normal;
   line-height: 1;
@@ -887,6 +896,11 @@ body {
 }
 
 .ticket__bodyMovieDate {
+  display: flex;
+  align-items: center;
+
+  max-width: 30%;
+
   border-right: 3px solid var(--main-font-color);
 }
 
@@ -907,11 +921,12 @@ body {
 }
 
 .ticket__bodyMovieSeatTitle {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: normal;
   line-height: 1;
   font-family: var(--main-font);
   color: var(--active-font-color);
+  white-space: nowrap;
 }
 
 .ticket__bodyMovieSeatNumber {
@@ -945,6 +960,10 @@ body {
 
 .d-none {
   display: none;
+}
+
+.h-auto {
+  height: auto;
 }
 
 @keyframes hideElementForNextScreen {
@@ -1129,6 +1148,10 @@ body {
     padding: 20px 30px;
   }
 
+  .confirmTicket {
+    margin: 0;
+  }
+
   .movieType__radioText,
   .movieTime__radioText {
     font-size: 16px;
@@ -1153,6 +1176,60 @@ body {
   .seat__mask {
     width: 25px;
     height: 25px;
+  }
+
+  .ticket {
+    transform: scale(0.9);
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .ticket {
+    transform: scale(1);
+    margin: 15px;
+  }
+
+  .ticket__numberTitle {
+    font-size: 10px;
+  }
+
+  .ticket__bodyTitle {
+    font-size: 20px;
+    margin-left: 40px;
+  }
+
+  .ticket__bodySubTitle {
+    font-size: 12px;
+  }
+
+  .ticket__barcode {
+    width: 35px;
+  }
+
+  .ticket__barcodeValue {
+    font-size: 8px;
+  }
+
+  .ticket__cinemaBrand {
+    width: 43px;
+  }
+
+  .ticket__bodyMovieTitle {
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  .ticket__bodyHallType {
+    font-size: 12px;
+  }
+
+  .badge-ticket {
+    padding: 5px;
+  }
+
+  .ticket__bodyMovieSeatTitle {
+    font-size: 10px;
   }
 }
 
@@ -1205,6 +1282,38 @@ body {
     width: 100%;
     margin: 20px 5px 0;
   }
+
+  .confirmTicket__title{
+    font-size: 30px;
+  }
+
+  .ticket{
+    margin: 8px 15px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .ticket__bodyTitle {
+    font-size: 16px;
+    margin-left: 20px;
+  }
+
+  .ticket__bodyMovieTitle {
+    font-size: 8px;
+  }
+
+  .badge-ticket {
+    font-size: 10px;
+    margin: 5px;
+  }
+
+  .ticket__bodyMovieSeatTitle {
+    font-size: 8px;
+  }
+
+  .ticket__bodyMovieSeatNumber {
+    font-size: 16px;
+  }
 }
 
 @media screen and (max-width: 375px) {
@@ -1218,6 +1327,29 @@ body {
 
     font-size: 10px;
   }
+
+  .ticket__numberTitle{
+    font-size: 8px;
+  }
+
+  .ticket__bodyBarcode {
+    padding: 5px;
+  }
+
+  .ticket__barcode {
+    width: 35px;
+    padding: 5px;
+  }
+
+  .ticket__cinemaBrand {
+    width: 33px;
+  }
+
+  .ticket__bodyTitle {
+    font-size: 12px;
+    margin-left: 10px;
+  }
+
 }
 
 @media screen and (max-width: 325px) {
