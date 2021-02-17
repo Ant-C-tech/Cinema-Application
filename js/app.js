@@ -1,11 +1,11 @@
 "use strict";
 
+import movie from "./movie.js";
+
 const body = document.querySelector("body");
 const hall = document.querySelector("#hall");
 const choosingSeatSection = document.querySelector("#choosingSeat");
-const movieDescriptionSection = document.querySelector(
-  "#movieDescriptionSection"
-);
+
 const confirmTicketSection = document.querySelector("#confirmTicket");
 const orderListSection = document.querySelector("#orderListSection");
 
@@ -14,24 +14,11 @@ const buyTicketButton = document.querySelector("#buyTicket");
 
 const movieTitle = document.querySelector("#movieTitle").innerHTML;
 
-const descriptionContentFromThirdPartyAPI = [
-  "Directed by Lorcan Finnegan",
-  "Produced by John McDonnell, Brendan McCarthy",
-  "Screenplay by Garret Shanley",
-  "Story by Garret Shanley, Lorcan Finnegan",
-  "Starring: Imogen Poots, Jesse Eisenberg",
-  "Music by Kristian Eidnes Andersen",
-  "Cinematography: MacGregor",
-  "Edited by Tony Cranstoun",
-  "Production companies: XYZ Films, Fantastic Films, Frakas Productions, PingPong Film, VOO, BeTV",
-  "Distributed by Vertigo Releasing",
-  "Release date: 18 May 2019 (Cannes), 27 March 2020 (Ireland)",
-  "Running time: 97 minutes",
-  "Country: Ireland, Denmark, Belgium",
-  "Language: English",
-  "Box office: $427,399",
-];
 // =================================================================
+
+const addIDToElement = (element, id) => {
+  element.setAttribute("id", id);
+};
 
 const addClassToElement = (element, className) => {
   element.classList.add(`${className}`);
@@ -39,6 +26,67 @@ const addClassToElement = (element, className) => {
 
 const removeClassFromElement = (element, className) => {
   element.classList.remove(`${className}`);
+};
+
+const createDOMElement = (elementType, content, className) => {
+  return `<${elementType} class = "${className}">${content}</${elementType}>`;
+};
+
+const fillElementByContent = (element, content) => {
+  element.innerHTML = content;
+};
+
+// const createModalElementContent = (contentSource, contentItemClass) => {
+//   let content = "";
+//   contentSource.forEach((line) => {
+//     content += `<p class="${contentItemClass}">${line}</p>`;
+//   });
+//   return content;
+// };
+
+const getContentFromObject = (object, typeOfItem, className) => {
+  let content = "";
+  Object.keys(object).forEach((key) => {
+    content += createDOMElement(
+      typeOfItem,
+      `${key} : ${object[key]}`,
+      className
+    );
+  });
+  return content;
+};
+
+const createControlElements = (buttonSet) => {
+  let controlElements = "";
+  buttonSet.forEach((button) => {
+    controlElements += `<a id="${button[0]}" class="siteButton siteButton-text" href="#">${button[1]}</a>`;
+  });
+  return controlElements;
+};
+
+const createModalElement = (
+  sectionID,
+  sectionClass,
+  sectionTitleClass,
+  sectionTitleContent,
+  contentWrapperClass,
+  createContentFunction,
+  createControlElementsFunction
+) => {
+  const content = `<h3 class="${sectionTitleClass}">${sectionTitleContent}</h3>
+      <div class="${contentWrapperClass}">${createContentFunction()}</div>
+      <div class="flexRow flexRow-center">${createControlElementsFunction()}</div>`;
+  let modalElement = document.createElement("section");
+  sectionClass.split(" ").forEach((className) => {
+    addClassToElement(modalElement, className);
+  });
+  addIDToElement(modalElement, sectionID);
+  fillElementByContent(modalElement, content);
+  return modalElement;
+};
+
+const addModalElementToPage = (modalElement) => {
+  body.appendChild(modalElement);
 };
 
 const showNextScreen = (
@@ -88,6 +136,23 @@ const getChosenSeats = () => {
 const getChosenAttributes = (attributeID) => {
   const chosenAttribute = document.querySelector(attributeID);
   return chosenAttribute.querySelector("input:checked").defaultValue;
+};
+
+const createMovieDescriptionScreenContent = () => {
+  return `
+  <div class="movieDescription__textContent">
+  ${getContentFromObject(
+    movie["readMoreText"],
+    "p",
+    "movieDescription__element"
+  )}
+  </div>
+  <div class="movieDescription__posterContent">
+    <img class="movieDescription__poster" src="${
+      movie["readMorePoster"]["poster image"]
+    }" alt="${movie["readMorePoster"]["poster alt"]}"/>
+  </div>
+  `;
 };
 
 const createTicket = (seatNumber) => {
@@ -146,34 +211,35 @@ const createTicket = (seatNumber) => {
         </article>`;
 };
 
-const fillElementByContent = (element, content) => {
-  element.innerHTML = content;
-};
+// const renderOrderList = () => {
+//   fillElementByContent(orderListSection, "");
 
-const renderOrderList = () => {
-  fillElementByContent(orderListSection, "");
+//   let orderContent = "";
 
-  let orderContent = "";
+//   getChosenSeats().forEach((ticket) => {
+//     orderContent += createTicket(ticket.defaultValue);
+//   });
 
-  getChosenSeats().forEach((ticket) => {
-    orderContent += createTicket(ticket.defaultValue);
-  });
-
-  fillElementByContent(orderListSection, orderContent);
-};
+//   fillElementByContent(orderListSection, orderContent);
+// };
 // =================================================================
 
 readMoreAboutMovieButton.addEventListener("click", () => {
-  const title = document.querySelector("#movieDescriptionSectionTitle");
-  const contentSection = document.querySelector("#movieDescriptionSectionContent");
 
-  let content = ''
-  descriptionContentFromThirdPartyAPI.forEach((line) => {
-    content += `<p class="movieDescription__element">${line}</p>`;
-  });
+  const modalElement = createModalElement(
+    "movieDescriptionSection",
+    "movieDescription d-none",
+    "movieDescription__title",
+    movieTitle,
+    "movieDescription__content",
+    createMovieDescriptionScreenContent,
+    createControlElements.bind(this, [["cancelTicketOrder", "Back"]])
+  );
+  addModalElementToPage(modalElement);
 
-  fillElementByContent(title, movieTitle);
-  fillElementByContent(contentSection, content);
+  const movieDescriptionSection = document.querySelector(
+    "#movieDescriptionSection"
+  );
 
   showNextScreen(
     choosingSeatSection,
@@ -187,15 +253,15 @@ readMoreAboutMovieButton.addEventListener("click", () => {
   );
 });
 
-buyTicketButton.addEventListener("transitionend", (e) => e.stopPropagation());
+// buyTicketButton.addEventListener("transitionend", (e) => e.stopPropagation());
 
-buyTicketButton.addEventListener("click", () => {
-  renderOrderList();
-  showNextScreen(
-    choosingSeatSection,
-    "hideAnimationForNextScreenHorizontal",
-    confirmTicketSection,
-    "showAnimationForNextScreenHorizontal",
-    changeVisualizationInOrderOverflowContent.bind(this, confirmTicketSection)
-  );
-});
+// buyTicketButton.addEventListener("click", () => {
+//   renderOrderList();
+//   showNextScreen(
+//     choosingSeatSection,
+//     "hideAnimationForNextScreenHorizontal",
+//     confirmTicketSection,
+//     "showAnimationForNextScreenHorizontal",
+//     changeVisualizationInOrderOverflowContent.bind(this, confirmTicketSection)
+//   );
+// });

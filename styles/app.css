@@ -956,16 +956,30 @@ body {
 
 /* ========== Movie Description Section =========== */
 .movieDescription__content {
+  /* display: flex; */
+  padding: 0 20px 50px;
+}
+
+.movieDescription__textContent {
+  width: 60%;
+
+  padding: 20px;
+}
+
+.movieDescription__posterContent {
+  width: 40%;
+}
+
+.movieDescription__poster {
   display: block;
-  padding: 0 20px 40px;
+  width: 100%;
 }
 
 .movieDescription__element {
   font-size: 20px;
-  font-weight: bold;
   line-height: 1.5;
   font-family: var(--main-font);
-  color: var(--main-font-color);
+  color: var(--active-font-color);
 }
 /* ========== /Movie Description Section =========== */
 
