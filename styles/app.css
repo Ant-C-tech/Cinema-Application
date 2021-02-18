@@ -956,18 +956,17 @@ body {
 
 /* ========== Movie Description Section =========== */
 .movieDescription__content {
-  /* display: flex; */
   padding: 0 20px 50px;
 }
 
 .movieDescription__textContent {
-  width: 60%;
+  width: 65%;
 
-  padding: 20px;
+  padding: 0 20px 20px;
 }
 
 .movieDescription__posterContent {
-  width: 40%;
+  width: 35%;
 }
 
 .movieDescription__poster {
@@ -984,48 +983,9 @@ body {
 /* ========== /Movie Description Section =========== */
 
 /* ========== Classes for interaction ========== */
-.hideAnimationForNextScreenHorizontal {
-  animation: hideElementForNextScreenHorizontal 0.7s;
-}
-
-.showAnimationForNextScreenHorizontal {
-  animation: showElementForNextScreenHorizontal 0.7s;
-}
 
 .hideAnimationForNextScreenVertical {
   animation: hideElementForNextScreenVertical 0.7s;
-}
-
-.showAnimationForNextScreenVertical {
-  animation: showElementForNextScreenVertical 0.7s;
-}
-
-.d-none {
-  display: none;
-}
-
-.h-auto {
-  height: auto;
-}
-
-@keyframes hideElementForNextScreenHorizontal {
-  0% {
-    transform: rotate3d(0, 1, 0, 0deg);
-  }
-
-  100% {
-    transform: rotate3d(0, 1, 0, 90deg);
-  }
-}
-
-@keyframes showElementForNextScreenHorizontal {
-  0% {
-    transform: rotate3d(0, 1, 0, -90deg);
-  }
-
-  100% {
-    transform: rotate3d(0, 1, 0, 0deg);
-  }
 }
 
 @keyframes hideElementForNextScreenVertical {
@@ -1038,6 +998,10 @@ body {
   }
 }
 
+.showAnimationForNextScreenVertical {
+  animation: showElementForNextScreenVertical 0.7s;
+}
+
 @keyframes showElementForNextScreenVertical {
   0% {
     transform: rotate3d(1, 0, 0, -90deg);
@@ -1047,6 +1011,123 @@ body {
     transform: rotate3d(1, 0, 0, 0deg);
   }
 }
+
+.hideAnimationForPreviousScreenVertical {
+  animation: hideElementForPreviousScreenVertical 0.7s;
+}
+
+@keyframes hideElementForPreviousScreenVertical {
+  0% {
+    transform: rotate3d(1, 0, 0, 0deg);
+  }
+
+  100% {
+    transform: rotate3d(1, 0, 0, -90deg);
+  }
+}
+
+.showAnimationForPreviousScreenVertical {
+  animation: showElementForPreviousScreenVertical 0.7s;
+}
+
+@keyframes showElementForPreviousScreenVertical {
+  0% {
+    transform: rotate3d(1, 0, 0, 90deg);
+  }
+
+  100% {
+    transform: rotate3d(1, 0, 0, 0deg);
+  }
+}
+
+.hideAnimationForNextScreenHorizontal {
+  animation: hideElementForNextScreenHorizontal 0.7s;
+}
+
+@keyframes hideElementForNextScreenHorizontal {
+  0% {
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+
+  100% {
+    transform: rotate3d(0, 1, 0, 90deg);
+  }
+}
+
+.showAnimationForNextScreenHorizontal {
+  animation: showElementForNextScreenHorizontal 0.7s;
+}
+
+@keyframes showElementForNextScreenHorizontal {
+  0% {
+    transform: rotate3d(0, 1, 0, -90deg);
+  }
+
+  100% {
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+}
+
+.hideAnimationForPreviousScreenHorizontal {
+  animation: hideElementForPreviousScreenHorizontal 0.7s;
+}
+
+@keyframes hideElementForPreviousScreenHorizontal {
+  0% {
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+
+  100% {
+    transform: rotate3d(0, 1, 0, -90deg);
+  }
+}
+
+.showAnimationForPreviousScreenHorizontal {
+  animation: showElementForPreviousScreenHorizontal 0.7s;
+}
+
+@keyframes showElementForPreviousScreenHorizontal {
+  0% {
+    transform: rotate3d(0, 1, 0, 90deg);
+  }
+
+  100% {
+    transform: rotate3d(0, 1, 0, 0deg);
+  }
+}
+
+.d-none {
+  display: none;
+}
+
+.angle90_vertical{
+  transform: rotateX(90deg);
+}
+
+.angle-90_vertical{
+  transform: rotateX(-90deg);
+}
+
+.angle90_horizontal{
+  transform: rotateY(90deg);
+}
+
+.angle-90_horizontal{
+  transform: rotateY(-90deg);
+}
+
+.h-auto {
+  height: auto;
+}
+
+
+
+
+
+
+
+
+
 /* ========== /Classes for interaction ========== */
 
 /* ========== Media ========== */
@@ -1102,6 +1183,11 @@ body {
   .movieDate,
   .movieTime {
     margin-bottom: 25px;
+  }
+
+  .movieDescription__element {
+    font-size: 16px;
+    line-height: 1.2;
   }
 }
 
@@ -1242,6 +1328,18 @@ body {
     height: 25px;
   }
 
+  .movieDescription__content {
+    flex-wrap: wrap;
+  }
+
+  .movieDescription__textContent {
+    width: 100%;
+  }
+
+  .movieDescription__posterContent {
+    width: 100%;
+  }
+
   .ticket {
     transform: scale(0.9);
     margin: 0;
@@ -1249,6 +1347,10 @@ body {
 }
 
 @media screen and (max-width: 460px) {
+  .movieDescription__element {
+    font-size: 14px;
+  }
+
   .ticket {
     transform: scale(1);
     margin: 15px;

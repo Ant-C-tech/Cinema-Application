@@ -3,16 +3,19 @@
 import movie from "./movie.js";
 
 const body = document.querySelector("body");
-const hall = document.querySelector("#hall");
 const choosingSeatSection = document.querySelector("#choosingSeat");
-
-const confirmTicketSection = document.querySelector("#confirmTicket");
-const orderListSection = document.querySelector("#orderListSection");
 
 const readMoreAboutMovieButton = document.querySelector("#btnReadMore");
 const buyTicketButton = document.querySelector("#buyTicket");
 
-const movieTitle = document.querySelector("#movieTitle").innerHTML;
+const movieTitleContent = document.querySelector("#movieTitle").innerHTML;
+
+const order = {
+  "hall type": "",
+  date: "",
+  time: "",
+  seats: "",
+};
 
 // =================================================================
 
@@ -32,19 +35,11 @@ const createDOMElement = (elementType, content, className) => {
   return `<${elementType} class = "${className}">${content}</${elementType}>`;
 };
 
-const fillElementByContent = (element, content) => {
-  element.innerHTML = content;
+const addModalElementToPage = (modalElement) => {
+  body.appendChild(modalElement);
 };
 
-// const createModalElementContent = (contentSource, contentItemClass) => {
-//   let content = "";
-//   contentSource.forEach((line) => {
-//     content += `<p class="${contentItemClass}">${line}</p>`;
-//   });
-//   return content;
-// };
-
-const getContentFromObject = (object, typeOfItem, className) => {
+const createDoomElementsFromObject = (object, typeOfItem, className) => {
   let content = "";
   Object.keys(object).forEach((key) => {
     content += createDOMElement(
@@ -64,41 +59,41 @@ const createControlElements = (buttonSet) => {
   return controlElements;
 };
 
-const createModalElement = (
-  sectionID,
-  sectionClass,
-  sectionTitleClass,
-  sectionTitleContent,
-  contentWrapperClass,
-  createContentFunction,
-  createControlElementsFunction
-) => {
-  const content = `<h3 class="${sectionTitleClass}">${sectionTitleContent}</h3>
-      <div class="${contentWrapperClass}">${createContentFunction()}</div>
-      <div class="flexRow flexRow-center">${createControlElementsFunction()}</div>`;
-  let modalElement = document.createElement("section");
-  sectionClass.split(" ").forEach((className) => {
-    addClassToElement(modalElement, className);
-  });
-  addIDToElement(modalElement, sectionID);
-  fillElementByContent(modalElement, content);
-  return modalElement;
+const getDataForUserOrderObject = () => {
+  const getChosenAttributes = (attributeID) => {
+    const chosenAttribute = document.querySelector(
+      `${attributeID} input:checked`
+    ).defaultValue;
+    return chosenAttribute;
+  };
+
+  const getChosenSeats = () => {
+    return Array.from(document.querySelectorAll("#hall input:checked")).map(
+      (seat) => seat.defaultValue
+    );
+  };
+
+  order["hall type"] = getChosenAttributes("#hallType");
+  order["date"] = new Date(getChosenAttributes("#movieDate"));
+  order["time"] = getChosenAttributes("#movieTime");
+  order["seats"] = getChosenSeats();
 };
 
-const addModalElementToPage = (modalElement) => {
-  body.appendChild(modalElement);
-};
+// =================================================================
 
-const showNextScreen = (
+const changeScreen = (
   currentElement,
   animationForCurrentElement,
+  positionCurrentElement,
   nextElement,
   animationForNextElement,
+  positionNextElement,
   callback
 ) => {
   currentElement.addEventListener(
     "animationend",
     () => {
+      addClassToElement(currentElement, positionCurrentElement);
       addClassToElement(currentElement, "d-none");
       removeClassFromElement(currentElement, animationForCurrentElement);
 
@@ -110,6 +105,7 @@ const showNextScreen = (
   nextElement.addEventListener(
     "animationend",
     () => {
+      removeClassFromElement(nextElement, positionNextElement);
       removeClassFromElement(nextElement, animationForNextElement);
       callback && callback();
     },
@@ -129,33 +125,47 @@ const changeVisualizationInOrderOverflowContent = (element) => {
   }
 };
 
-const getChosenSeats = () => {
-  return hall.querySelectorAll("input:checked");
+// =================================================================
+
+const createModalElement = (
+  sectionID,
+  sectionClass,
+  sectionTitleClass,
+  sectionTitleContent,
+  contentWrapperClass,
+  createContentFunction,
+  createControlElementsFunction
+) => {
+  const content = `<h3 class="${sectionTitleClass}">${sectionTitleContent}</h3>
+      <div class="${contentWrapperClass}">${createContentFunction()}</div>
+      <div class="flexRow flexRow-center">${createControlElementsFunction()}</div>`;
+  let modalElement = document.createElement("section");
+  sectionClass.split(" ").forEach((className) => {
+    addClassToElement(modalElement, className);
+  });
+  addIDToElement(modalElement, sectionID);
+  modalElement.innerHTML = content;
+  return modalElement;
 };
 
-const getChosenAttributes = (attributeID) => {
-  const chosenAttribute = document.querySelector(attributeID);
-  return chosenAttribute.querySelector("input:checked").defaultValue;
-};
-
-const createMovieDescriptionScreenContent = () => {
+const createReadMoreScreenContent = () => {
   return `
   <div class="movieDescription__textContent">
-  ${getContentFromObject(
-    movie["readMoreText"],
+  ${createDoomElementsFromObject(
+    movie["read more content"]["text"],
     "p",
     "movieDescription__element"
   )}
   </div>
   <div class="movieDescription__posterContent">
     <img class="movieDescription__poster" src="${
-      movie["readMorePoster"]["poster image"]
-    }" alt="${movie["readMorePoster"]["poster alt"]}"/>
+      movie["read more content"]["poster"]["poster src"]
+    }" alt="${movie["read more content"]["poster"]["poster alt"]}"/>
   </div>
   `;
 };
 
-const createTicket = (seatNumber) => {
+const createTicket = (hall, date, time, seat) => {
   return `<article class="ticket">
           <div class="ticket__number ticket__number-top">
             <p class="ticket__numberTitle">
@@ -186,20 +196,18 @@ const createTicket = (seatNumber) => {
                 />
               </div>
               <div class="ticket__bodyMovieData">
-                <p class="ticket__bodyMovieTitle">${movieTitle}</p>
-                <p class="ticket__bodyHallType">${getChosenAttributes(
-                  "#hallType"
-                )}</p>
+                <p class="ticket__bodyMovieTitle">${movieTitleContent}</p>
+                <p class="ticket__bodyHallType">${hall}</p>
               </div>
               <div class="ticket__bodyMovieDate">
                 <div class="badge badge-data badge-ticket">
-                  <p>Wed, 3</p>
-                  <p>20:00</p>
+                  <p>${date.toDateString().split(' ').splice(0, 3).join(' ')}</p>
+                  <p>${time}</p>
                 </div>
               </div>
               <div class="ticket__bodyMovieSeat">
                 <p class="ticket__bodyMovieSeatTitle">SEAT NO:</p>
-                <p class="ticket__bodyMovieSeatNumber">${seatNumber}</p>
+                <p class="ticket__bodyMovieSeatNumber">${seat}</p>
               </div>
             </div>
           </div>
@@ -211,29 +219,32 @@ const createTicket = (seatNumber) => {
         </article>`;
 };
 
-// const renderOrderList = () => {
-//   fillElementByContent(orderListSection, "");
+const createOrderListContent = () => {
+  let content = "";
+  order["seats"].forEach((seat) => {
+    content += createTicket(
+      order["hall type"],
+      order["date"],
+      order["time"],
+      seat
+    );
+  });
+  return content;
+};
 
-//   let orderContent = "";
-
-//   getChosenSeats().forEach((ticket) => {
-//     orderContent += createTicket(ticket.defaultValue);
-//   });
-
-//   fillElementByContent(orderListSection, orderContent);
-// };
+// =================================================================
+// =================================================================
 // =================================================================
 
 readMoreAboutMovieButton.addEventListener("click", () => {
-
   const modalElement = createModalElement(
     "movieDescriptionSection",
-    "movieDescription d-none",
+    "movieDescription angle-90_vertical d-none",
     "movieDescription__title",
-    movieTitle,
+    movieTitleContent,
     "movieDescription__content",
-    createMovieDescriptionScreenContent,
-    createControlElements.bind(this, [["cancelTicketOrder", "Back"]])
+    createReadMoreScreenContent,
+    createControlElements.bind(this, [["backToMainPageFromReadMore", "Back"]])
   );
   addModalElementToPage(modalElement);
 
@@ -241,27 +252,71 @@ readMoreAboutMovieButton.addEventListener("click", () => {
     "#movieDescriptionSection"
   );
 
-  showNextScreen(
+  changeScreen(
     choosingSeatSection,
     "hideAnimationForNextScreenVertical",
+    "angle90_vertical",
     movieDescriptionSection,
     "showAnimationForNextScreenVertical",
+    "angle-90_vertical",
     changeVisualizationInOrderOverflowContent.bind(
       this,
       movieDescriptionSection
     )
   );
+
+  const backButton = document.querySelector("#backToMainPageFromReadMore");
+
+  backButton.addEventListener(
+    "click",
+    () => {
+      changeScreen(
+        movieDescriptionSection,
+        "hideAnimationForPreviousScreenVertical",
+        "angle-90_vertical",
+        choosingSeatSection,
+        "showAnimationForPreviousScreenVertical",
+        "angle90_vertical",
+        changeVisualizationInOrderOverflowContent.bind(
+          this,
+          movieDescriptionSection
+        )
+      );
+    },
+    { once: true }
+  );
 });
 
-// buyTicketButton.addEventListener("transitionend", (e) => e.stopPropagation());
+buyTicketButton.addEventListener("transitionend", (e) => e.stopPropagation());
 
-// buyTicketButton.addEventListener("click", () => {
-//   renderOrderList();
-//   showNextScreen(
-//     choosingSeatSection,
-//     "hideAnimationForNextScreenHorizontal",
-//     confirmTicketSection,
-//     "showAnimationForNextScreenHorizontal",
-//     changeVisualizationInOrderOverflowContent.bind(this, confirmTicketSection)
-//   );
-// });
+buyTicketButton.addEventListener("click", () => {
+  getDataForUserOrderObject();
+
+  console.log(order);
+
+  const modalElement = createModalElement(
+    "confirmTicket",
+    "confirmTicket angle-90_horizontal d-none",
+    "confirmTicket__title",
+    "Your order:",
+    "movieDescription__content",
+    createOrderListContent,
+    createControlElements.bind(this, [
+      ["backToMainPageFromOrderList", "Cancel"],
+      ["confirmOrder", "Take it"],
+    ])
+  );
+  addModalElementToPage(modalElement);
+
+  const confirmTicketSection = document.querySelector("#confirmTicket");
+
+  changeScreen(
+    choosingSeatSection,
+    "hideAnimationForNextScreenHorizontal",
+    "angle90_horizontal",
+    confirmTicketSection,
+    "showAnimationForNextScreenHorizontal",
+    "angle-90_horizontal",
+    changeVisualizationInOrderOverflowContent.bind(this, confirmTicketSection)
+  );
+});
