@@ -15,6 +15,7 @@ const order = {
   date: "",
   time: "",
   seats: "",
+  barcode: [],
 };
 
 // =================================================================
@@ -60,6 +61,8 @@ const createControlElements = (buttonSet) => {
 };
 
 const getDataForUserOrderObject = () => {
+  const chosenNumbers = document.querySelectorAll("#hall input:checked");
+
   const getChosenAttributes = (attributeID) => {
     const chosenAttribute = document.querySelector(
       `${attributeID} input:checked`
@@ -68,15 +71,24 @@ const getDataForUserOrderObject = () => {
   };
 
   const getChosenSeats = () => {
-    return Array.from(document.querySelectorAll("#hall input:checked")).map(
-      (seat) => seat.defaultValue
-    );
+    return Array.from(chosenNumbers).map((seat) => seat.defaultValue);
+  };
+
+  const createBarcodeNumber = () => {
+    const barcodeNumber = [];
+    for (let index = 0; index < chosenNumbers.length; index++) {
+      barcodeNumber.push(new Date().valueOf() + index);
+    }
+    return barcodeNumber
   };
 
   order["hall type"] = getChosenAttributes("#hallType");
   order["date"] = new Date(getChosenAttributes("#movieDate"));
   order["time"] = getChosenAttributes("#movieTime");
   order["seats"] = getChosenSeats();
+  order["barcode"] = createBarcodeNumber();
+
+  console.log(order);
 };
 
 const cleanUserOrderObject = () => {
@@ -84,6 +96,7 @@ const cleanUserOrderObject = () => {
   order["date"] = "";
   order["time"] = "";
   order["seats"] = "";
+  order["barcode"] = [];
 };
 
 // =================================================================
@@ -180,7 +193,7 @@ const createReadMoreScreenContent = () => {
   `;
 };
 
-const createTicket = (hall, date, time, seat) => {
+const createTicket = (hall, date, time, seat, barcode) => {
   return `<article class="ticket">
           <div class="ticket__number ticket__number-top">
             <p class="ticket__numberTitle">
@@ -195,7 +208,7 @@ const createTicket = (hall, date, time, seat) => {
                   src="./img/bar-code.svg"
                   alt="barcode of your ticket"
                 />
-                <p class="ticket__barcodeValue">654189416541</p>
+                <p class="ticket__barcodeValue">${barcode}</p>
               </div>
               <div class="ticket__bodyImg">
                 <p class="ticket__bodySubTitle">ADMIT ONE</p>
@@ -240,12 +253,13 @@ const createTicket = (hall, date, time, seat) => {
 
 const createOrderListContent = () => {
   let content = "";
-  order["seats"].forEach((seat) => {
+  order["seats"].forEach((seat, index) => {
     content += createTicket(
       order["hall type"],
       order["date"],
       order["time"],
-      seat
+      seat,
+      order["barcode"][index]
     );
   });
   return content;
