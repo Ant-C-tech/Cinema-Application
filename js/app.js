@@ -79,7 +79,22 @@ const getDataForUserOrderObject = () => {
   order["seats"] = getChosenSeats();
 };
 
+const cleanUserOrderObject = () => {
+  order["hall type"] = "";
+  order["date"] = "";
+  order["time"] = "";
+  order["seats"] = "";
+};
+
 // =================================================================
+
+const changeContent = (targetElement, content) => {
+  targetElement.addEventListener('transitionend', () => {
+    targetElement.innerHTML = content
+    removeClassFromElement(targetElement, "opacityHide");
+  })
+  addClassToElement(targetElement, "opacityHide");
+}
 
 const changeScreen = (
   currentElement,
@@ -201,7 +216,11 @@ const createTicket = (hall, date, time, seat) => {
               </div>
               <div class="ticket__bodyMovieDate">
                 <div class="badge badge-data badge-ticket">
-                  <p>${date.toDateString().split(' ').splice(0, 3).join(' ')}</p>
+                  <p>${date
+                    .toDateString()
+                    .split(" ")
+                    .splice(0, 3)
+                    .join(" ")}</p>
                   <p>${time}</p>
                 </div>
               </div>
@@ -235,6 +254,71 @@ const createOrderListContent = () => {
 // =================================================================
 // =================================================================
 // =================================================================
+
+const dateSliderInit = () => {
+  const sliderShowedLength = 5;
+  const movieDateSection = document.querySelector("#movieDate");
+  const hintElement = document.querySelector("#chosenDate");
+  const dateListWrapper = document.querySelector("#dateListWrapper");
+  const sliderElementsCollection = document.querySelectorAll(
+    ".movieDate__radio"
+  );
+  const sliderElementWidth = sliderElementsCollection[0].offsetWidth;
+
+  const nextDayButton = document.querySelector("#nextDayBtn");
+  const previousDayButton = document.querySelector("#previousDayBtn");
+
+  let currentFirstElementIndex = 0;
+  dateListWrapper.style.left = 0;
+
+  const getSliderPosition = () => {
+    return (dateListWrapper.style.left =
+      -(currentFirstElementIndex * sliderElementWidth) + "px");
+  };
+
+  const checkButtonsIsAvailable = () => {
+    if (currentFirstElementIndex < 1) {
+      addClassToElement(previousDayButton, "btnMovieDate-disabled");
+      previousDayButton.setAttribute("tabindex", "-1");
+    } else {
+      removeClassFromElement(previousDayButton, "btnMovieDate-disabled");
+      previousDayButton.setAttribute("tabindex", "0");
+    }
+    if (
+      currentFirstElementIndex >
+      sliderElementsCollection.length - sliderShowedLength - 1
+    ) {
+      addClassToElement(nextDayButton, "btnMovieDate-disabled");
+      nextDayButton.setAttribute("tabindex", "-1");
+    } else {
+      removeClassFromElement(nextDayButton, "btnMovieDate-disabled");
+      nextDayButton.setAttribute("tabindex", "0");
+    }
+  };
+
+  movieDateSection.addEventListener("click", function ({ target }) {
+    if (target.getAttribute("id") === "nextDayBtn") {
+      currentFirstElementIndex++;
+      getSliderPosition();
+      checkButtonsIsAvailable();
+    } else if (target.getAttribute("id") === "previousDayBtn") {
+      currentFirstElementIndex--;
+      getSliderPosition();
+      checkButtonsIsAvailable();
+    } else if (target.classList.contains("movieDate__radioInput")) {
+      const hintContent = new Date(target.defaultValue)
+        .toDateString()
+        .split(" ")
+        .splice(0, 3)
+        .join(" ");
+      changeContent(hintElement, hintContent);
+    }
+  });
+
+  checkButtonsIsAvailable();
+};
+
+dateSliderInit();
 
 readMoreAboutMovieButton.addEventListener("click", () => {
   const modalElement = createModalElement(
@@ -279,7 +363,7 @@ readMoreAboutMovieButton.addEventListener("click", () => {
         "angle90_vertical",
         changeVisualizationInOrderOverflowContent.bind(
           this,
-          movieDescriptionSection
+          choosingSeatSection
         )
       );
     },
@@ -291,8 +375,6 @@ buyTicketButton.addEventListener("transitionend", (e) => e.stopPropagation());
 
 buyTicketButton.addEventListener("click", () => {
   getDataForUserOrderObject();
-
-  console.log(order);
 
   const modalElement = createModalElement(
     "confirmTicket",
@@ -318,5 +400,27 @@ buyTicketButton.addEventListener("click", () => {
     "showAnimationForNextScreenHorizontal",
     "angle-90_horizontal",
     changeVisualizationInOrderOverflowContent.bind(this, confirmTicketSection)
+  );
+
+  const cancelButton = document.querySelector("#backToMainPageFromOrderList");
+
+  cancelButton.addEventListener(
+    "click",
+    () => {
+      changeScreen(
+        confirmTicketSection,
+        "hideAnimationForPreviousScreenHorizontal",
+        "angle-90_horizontal",
+        choosingSeatSection,
+        "showAnimationForPreviousScreenHorizontal",
+        "angle90_horizontal",
+        changeVisualizationInOrderOverflowContent.bind(
+          this,
+          choosingSeatSection
+        )
+      );
+      cleanUserOrderObject();
+    },
+    { once: true }
   );
 });

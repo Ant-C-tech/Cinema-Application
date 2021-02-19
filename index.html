@@ -200,80 +200,160 @@
 
         <!-- Movie Date Section -->
         <section id="movieDate" class="movieDate">
-          <p class="movieDate__currentTime">
-            <time datetime="2021-03-02">Tue, 2 March</time>
+          <p id="chosenDate" class="movieDate__currentTime">
+            <time datetime="2021-03-02">We are waiting you</time>
           </p>
 
           <div class="flexRow">
             <a
+            id="previousDayBtn"
               href="#"
-              class="btnMovieDate btnMovieDate-disabled"
-              tabindex="-1"
+              class="btnMovieDate"
+              tabindex="0"
             >
               &#9668;
             </a>
 
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-01"
-              />
-              <span
-                class="movieDate__radioSupText movieDate__radioSupText-current"
-              >
-                Today
-              </span>
-              <time class="movieDate__radioText" datetime="2021-03-01">1</time>
-            </label>
+            <div class="movieDate__slider">
+              <div id="dateListWrapper" class="flexRow movieDate__dateListWrapper">
+                <label class="movieDate__radio">
+                  <input
+                    class="movieDate__radioInput visually-hidden"
+                    type="radio"
+                    name="movie-date"
+                    value="2021-03-01"
+                  />
+                  <span
+                    class="movieDate__radioSupText movieDate__radioSupText-current"
+                  >
+                    Today
+                  </span>
+                  <time class="movieDate__radioText" datetime="2021-03-01"
+                    >1</time
+                  >
+                </label>
 
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-02"
-              />
-              <span class="movieDate__radioSupText">Tue</span>
-              <time class="movieDate__radioText" datetime="2021-03-02">2</time>
-            </label>
+                <label class="movieDate__radio">
+                  <input
+                    class="movieDate__radioInput visually-hidden"
+                    type="radio"
+                    name="movie-date"
+                    value="2021-03-02"
+                  />
+                  <span class="movieDate__radioSupText">Tue</span>
+                  <time class="movieDate__radioText" datetime="2021-03-02"
+                    >2</time
+                  >
+                </label>
 
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-03"
-              />
-              <span class="movieDate__radioSupText">Wed</span>
-              <time class="movieDate__radioText" datetime="2021-03-03">3</time>
-            </label>
+                <label class="movieDate__radio">
+                  <input
+                    class="movieDate__radioInput visually-hidden"
+                    type="radio"
+                    name="movie-date"
+                    value="2021-03-03"
+                  />
+                  <span class="movieDate__radioSupText">Wed</span>
+                  <time class="movieDate__radioText" datetime="2021-03-03"
+                    >3</time
+                  >
+                </label>
 
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-04"
-              />
-              <span class="movieDate__radioSupText">Thu</span>
-              <time class="movieDate__radioText" datetime="2021-03-04">4</time>
-            </label>
+                <label class="movieDate__radio">
+                  <input
+                    class="movieDate__radioInput visually-hidden"
+                    type="radio"
+                    name="movie-date"
+                    value="2021-03-04"
+                  />
+                  <span class="movieDate__radioSupText">Thu</span>
+                  <time class="movieDate__radioText" datetime="2021-03-04"
+                    >4</time
+                  >
+                </label>
 
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-05"
-                disabled
-              />
-              <span class="movieDate__radioSupText">Fri</span>
-              <time class="movieDate__radioText" datetime="2021-03-05">5</time>
-            </label>
+                <label class="movieDate__radio">
+                  <input
+                    class="movieDate__radioInput visually-hidden"
+                    type="radio"
+                    name="movie-date"
+                    value="2021-03-05"
+                    disabled
+                  />
+                  <span class="movieDate__radioSupText">Fri</span>
+                  <time class="movieDate__radioText" datetime="2021-03-05">
+                    5
+                  </time>
+                </label>
 
-            <a href="#" class="btnMovieDate"> &#9658;</a>
+                <label class="movieDate__radio">
+                  <input
+                    class="movieDate__radioInput visually-hidden"
+                    type="radio"
+                    name="movie-date"
+                    value="2021-03-06"
+                  />
+                  <span class="movieDate__radioSupText">Sat</span>
+                  <time class="movieDate__radioText" datetime="2021-03-06">
+                    6
+                  </time>
+                </label>
+
+                <label class="movieDate__radio">
+                  <input
+                    class="movieDate__radioInput visually-hidden"
+                    type="radio"
+                    name="movie-date"
+                    value="2021-03-07"
+                  />
+                  <span class="movieDate__radioSupText">Sun</span>
+                  <time class="movieDate__radioText" datetime="2021-03-07">
+                    7
+                  </time>
+                </label>
+
+                <label class="movieDate__radio">
+                  <input
+                    class="movieDate__radioInput visually-hidden"
+                    type="radio"
+                    name="movie-date"
+                    value="2021-03-08"
+                  />
+                  <span class="movieDate__radioSupText">Mon</span>
+                  <time class="movieDate__radioText" datetime="2021-03-08">
+                    8
+                  </time>
+                </label>
+
+                <label class="movieDate__radio">
+                  <input
+                    class="movieDate__radioInput visually-hidden"
+                    type="radio"
+                    name="movie-date"
+                    value="2021-03-09"
+                  />
+                  <span class="movieDate__radioSupText">Tue</span>
+                  <time class="movieDate__radioText" datetime="2021-03-09">
+                    9
+                  </time>
+                </label>
+
+                <label class="movieDate__radio">
+                  <input
+                    class="movieDate__radioInput visually-hidden"
+                    type="radio"
+                    name="movie-date"
+                    value="2021-03-10"
+                  />
+                  <span class="movieDate__radioSupText">Wed</span>
+                  <time class="movieDate__radioText" datetime="2021-03-10">
+                    10
+                  </time>
+                </label>
+              </div>
+            </div>
+
+            <a id="nextDayBtn" href="#" class="btnMovieDate" tabindex="0"> &#9658;</a>
           </div>
         </section>
         <!-- /Movie Date Section -->
@@ -852,33 +932,6 @@
       <!-- =============== /Control Section ============ -->
     </section>
     <!-- =============== /Choosing Seat Section ============ -->
-
-    <!-- =============== Confirm Ticket Section ============ -->
-    <!-- <section id="confirmTicket" class="confirmTicket d-none">
-      <h3 class="confirmTicket__title">Your order:</h3>
-      <div id="orderListSection" class="orderFlexWrapper"></div>
-      <div class="flexRow flexRow-center">
-        <a id="cancelTicketOrder" class="siteButton siteButton-text" href="#"
-          >Cancel</a
-        >
-        <a id="approveTicketOrder" class="siteButton siteButton-text" href="#"
-          >Confirm</a
-        >
-      </div>
-    </section> -->
-    <!-- =============== Confirm Ticket Section ============ -->
-
-    <!-- =============== Movie Description Section ============ -->
-    <!-- <section id="movieDescriptionSection" class="movieDescription d-none">
-      <h3 id="movieDescriptionSectionTitle" class="movieDescription__title"></h3>
-      <div id="movieDescriptionSectionContent" class="movieDescription__content"></div>
-      <div class="flexRow flexRow-center">
-        <a id="cancelTicketOrder" class="siteButton siteButton-text" href="#"
-          >Back</a
-        >
-      </div>
-    </section> -->
-    <!-- =============== Movie Description Section ============ -->
 
     <script type="module" src="./js/app.js"></script>
   </body>

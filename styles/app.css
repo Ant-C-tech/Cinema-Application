@@ -346,6 +346,8 @@ body {
   line-height: 1.5;
   font-family: var(--main-font);
   color: var(--active-font-color);
+
+  transition: opacity ease-in-out 0.3s;
 }
 
 .btnMovieDate {
@@ -380,11 +382,32 @@ body {
   cursor: default;
 }
 
+.btnMovieDate-disabled:focus {
+  font-size: 20px;
+  color: var(--secondary-color);
+
+  cursor: default;
+}
+
+.movieDate__slider{
+  position: relative;
+  overflow: hidden;
+
+  max-width: 425px;
+}
+
+.movieDate__dateListWrapper{
+  position: relative;
+  left: 0;
+
+  transition: all ease-in-out 0.3s;
+}
+
 .movieDate__radio {
   display: block;
 
-  margin: 0 20px;
-  min-width: 40px;
+  padding: 0 20px;
+  min-width: 85px;
 }
 
 .movieDate__radioSupText {
@@ -1100,6 +1123,10 @@ body {
   display: none;
 }
 
+.opacityHide{
+  opacity: 0;
+}
+
 .angle90_vertical{
   transform: rotateX(90deg);
 }
@@ -1141,7 +1168,7 @@ body {
   }
 
   .movieDate__radio {
-    margin: 0 10px;
+    padding: 0 10px;
   }
 
   .movieType__radioText,
@@ -1201,7 +1228,7 @@ body {
   }
 
   .movieDate__radio {
-    margin: 0 20px;
+    padding: 0 20px;
   }
 
   .movieType__radioText,
@@ -1415,7 +1442,7 @@ body {
   }
 
   .movieDate__radio {
-    margin: 0 10px;
+    padding: 0 10px;
   }
 
   .movieType__radioText,
@@ -1485,7 +1512,7 @@ body {
 
 @media screen and (max-width: 375px) {
   .movieDate__radio {
-    margin: 0 5px;
+    padding: 0 5px;
   }
 
   .seat__mask {
@@ -1524,8 +1551,8 @@ body {
   }
 
   .movieDate__radio {
-    min-width: 32px;
-    margin: 0 6px;
+    min-width: 45px;
+    padding: 0 6px;
   }
 
   .movieType__radioText {
