@@ -389,14 +389,14 @@ body {
   cursor: default;
 }
 
-.movieDate__slider{
+.movieDate__slider {
   position: relative;
   overflow: hidden;
 
   max-width: 425px;
 }
 
-.movieDate__dateListWrapper{
+.movieDate__dateListWrapper {
   position: relative;
   left: 0;
 
@@ -1123,37 +1123,29 @@ body {
   display: none;
 }
 
-.opacityHide{
+.opacityHide {
   opacity: 0;
 }
 
-.angle90_vertical{
+.angle90_vertical {
   transform: rotateX(90deg);
 }
 
-.angle-90_vertical{
+.angle-90_vertical {
   transform: rotateX(-90deg);
 }
 
-.angle90_horizontal{
+.angle90_horizontal {
   transform: rotateY(90deg);
 }
 
-.angle-90_horizontal{
+.angle-90_horizontal {
   transform: rotateY(-90deg);
 }
 
 .h-auto {
   height: auto;
 }
-
-
-
-
-
-
-
-
 
 /* ========== /Classes for interaction ========== */
 
@@ -1167,7 +1159,12 @@ body {
     padding: 20px 30px;
   }
 
+  .movieDate__slider {
+    max-width: 350px;
+  }
+
   .movieDate__radio {
+    min-width: 70px;
     padding: 0 10px;
   }
 
@@ -1207,6 +1204,15 @@ body {
     margin-bottom: 30px;
   }
 
+  .movieDate__slider {
+    max-width: 300px;
+  }
+
+  .movieDate__radio {
+    min-width: 60px;
+    padding: 0 10px;
+  }
+
   .movieDate,
   .movieTime {
     margin-bottom: 25px;
@@ -1228,7 +1234,7 @@ body {
   }
 
   .movieDate__radio {
-    padding: 0 20px;
+    padding: 0 10px;
   }
 
   .movieType__radioText,
@@ -1284,6 +1290,15 @@ body {
     padding: 20px 60px;
   }
 
+  .movieDate__slider {
+    max-width: 425px;
+  }
+
+  .movieDate__radio {
+    min-width: 85px;
+    padding: 0 20px;
+  }
+
   .movieType__radioText,
   .movieTime__radioText {
     font-size: 20px;
@@ -1322,6 +1337,15 @@ body {
 
   .controlSection {
     padding: 20px 30px;
+  }
+
+  .movieDate__slider {
+    max-width: 350px;
+  }
+
+  .movieDate__radio {
+    min-width: 70px;
+    padding: 0 10px;
   }
 
   .confirmTicket,
@@ -1373,7 +1397,16 @@ body {
   }
 }
 
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 470px) {
+  .movieDate__slider {
+    max-width: 300px;
+  }
+
+  .movieDate__radio {
+    min-width: 60px;
+    padding: 0 10px;
+  }
+
   .movieDescription__element {
     font-size: 14px;
   }
@@ -1487,6 +1520,15 @@ body {
 }
 
 @media screen and (max-width: 400px) {
+  .movieDate__slider {
+    max-width: 250px;
+  }
+
+  .movieDate__radio {
+    min-width: 50px;
+    padding: 0 5px;
+  }
+
   .ticket__bodyTitle {
     font-size: 16px;
     margin-left: 20px;
@@ -1511,8 +1553,13 @@ body {
 }
 
 @media screen and (max-width: 375px) {
+   .movieDate__slider {
+    max-width: 225px;
+  }
+
   .movieDate__radio {
-    padding: 0 5px;
+    min-width: 45px;
+    padding: 0 2px;
   }
 
   .seat__mask {

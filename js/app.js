@@ -89,12 +89,12 @@ const cleanUserOrderObject = () => {
 // =================================================================
 
 const changeContent = (targetElement, content) => {
-  targetElement.addEventListener('transitionend', () => {
-    targetElement.innerHTML = content
+  targetElement.addEventListener("transitionend", () => {
+    targetElement.innerHTML = content;
     removeClassFromElement(targetElement, "opacityHide");
-  })
+  });
   addClassToElement(targetElement, "opacityHide");
-}
+};
 
 const changeScreen = (
   currentElement,
@@ -263,11 +263,11 @@ const dateSliderInit = () => {
   const sliderElementsCollection = document.querySelectorAll(
     ".movieDate__radio"
   );
-  const sliderElementWidth = sliderElementsCollection[0].offsetWidth;
 
   const nextDayButton = document.querySelector("#nextDayBtn");
   const previousDayButton = document.querySelector("#previousDayBtn");
 
+  let sliderElementWidth = sliderElementsCollection[0].offsetWidth;
   let currentFirstElementIndex = 0;
   dateListWrapper.style.left = 0;
 
@@ -301,10 +301,12 @@ const dateSliderInit = () => {
       currentFirstElementIndex++;
       getSliderPosition();
       checkButtonsIsAvailable();
+      event.preventDefault();
     } else if (target.getAttribute("id") === "previousDayBtn") {
       currentFirstElementIndex--;
       getSliderPosition();
       checkButtonsIsAvailable();
+      event.preventDefault();
     } else if (target.classList.contains("movieDate__radioInput")) {
       const hintContent = new Date(target.defaultValue)
         .toDateString()
@@ -313,6 +315,10 @@ const dateSliderInit = () => {
         .join(" ");
       changeContent(hintElement, hintContent);
     }
+  });
+
+  window.addEventListener("resize", () => {
+    sliderElementWidth = sliderElementsCollection[0].offsetWidth;
   });
 
   checkButtonsIsAvailable();
