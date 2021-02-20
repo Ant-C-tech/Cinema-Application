@@ -828,8 +828,6 @@ body {
   position: relative;
 
   padding: 10px;
-
-  /* background-image: url(../img/poster_bg.jpg); */
 }
 
 .ticket__bodyImg::after {

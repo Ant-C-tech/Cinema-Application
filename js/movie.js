@@ -1,4 +1,10 @@
 const movie = {
+  title:'Vivarium',
+  trailer: {
+    "trailer src": "./video/trailer.mp4",
+    "trailer poster": "./img/video_poster.jpg",
+  },
+
   "read more content": {
     text: {
       Directed: "Lorcan Finnegan",
@@ -23,10 +29,12 @@ const movie = {
       "poster alt": "vivarium poster",
     },
   },
+
   ticket: {
     "barcode src": "./img/bar-code.svg",
-    "background src": './img/poster_bg.jpg',
+    "background src": "./img/poster_bg.jpg",
   },
+
 };
 
 export default movie;
