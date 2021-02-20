@@ -23,6 +23,10 @@ const movie = {
       "poster alt": "vivarium poster",
     },
   },
+  ticket: {
+    "barcode src": "./img/bar-code.svg",
+    "background src": './img/poster_bg.jpg',
+  },
 };
 
 export default movie;

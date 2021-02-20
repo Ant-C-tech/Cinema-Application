@@ -251,6 +251,8 @@ body {
   padding: 20px 60px;
 
   background-color: var(--main-color);
+
+  user-select: none;
 }
 
 /* /MovieType Section */
@@ -827,7 +829,7 @@ body {
 
   padding: 10px;
 
-  background-image: url(../img/poster_bg.jpg);
+  /* background-image: url(../img/poster_bg.jpg); */
 }
 
 .ticket__bodyImg::after {

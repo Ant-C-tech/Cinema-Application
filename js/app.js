@@ -15,7 +15,8 @@ const order = {
   date: "",
   time: "",
   seats: "",
-  barcode: [],
+  barcode: "",
+  ticket: "",
 };
 
 // =================================================================
@@ -61,7 +62,23 @@ const createControlElements = (buttonSet) => {
 };
 
 const getDataForUserOrderObject = () => {
+  const minBarcode = 1000000000;
+  const maxBarcode = 9999999999;
+  const ticketFirstPartNumberMin = 10;
+  const ticketFirstPartNumberMax = 99;
+  const ticketSecondPartNumberMin = 100;
+  const ticketSecondPartNumberMax = 999;
+  const ticketThirdPartNumberLength = 6;
+
   const chosenNumbers = document.querySelectorAll("#hall input:checked");
+
+  const getRandomInteger = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };
+
+  const getRandomCharNumberString = (length) => {
+    return Math.random().toString(36).substr(2, length).toUpperCase();
+  };
 
   const getChosenAttributes = (attributeID) => {
     const chosenAttribute = document.querySelector(
@@ -76,10 +93,30 @@ const getDataForUserOrderObject = () => {
 
   const createBarcodeNumber = () => {
     const barcodeNumber = [];
-    for (let index = 0; index < chosenNumbers.length; index++) {
-      barcodeNumber.push(new Date().valueOf() + index);
-    }
-    return barcodeNumber
+
+    Array.from(chosenNumbers).forEach(() =>
+      barcodeNumber.push(getRandomInteger(minBarcode, maxBarcode))
+    );
+
+    return barcodeNumber;
+  };
+
+  const createTicketNumber = () => {
+    const ticketNumber = [];
+
+    Array.from(chosenNumbers).forEach(() =>
+      ticketNumber.push(
+        `${getRandomInteger(
+          ticketFirstPartNumberMin,
+          ticketFirstPartNumberMax
+        )}-${getRandomInteger(
+          ticketSecondPartNumberMin,
+          ticketSecondPartNumberMax
+        )}-${getRandomCharNumberString(ticketThirdPartNumberLength)}`
+      )
+    );
+
+    return ticketNumber;
   };
 
   order["hall type"] = getChosenAttributes("#hallType");
@@ -87,8 +124,7 @@ const getDataForUserOrderObject = () => {
   order["time"] = getChosenAttributes("#movieTime");
   order["seats"] = getChosenSeats();
   order["barcode"] = createBarcodeNumber();
-
-  console.log(order);
+  order["ticket"] = createTicketNumber();
 };
 
 const cleanUserOrderObject = () => {
@@ -96,7 +132,8 @@ const cleanUserOrderObject = () => {
   order["date"] = "";
   order["time"] = "";
   order["seats"] = "";
-  order["barcode"] = [];
+  order["barcode"] = "";
+  order["ticket"] = "";
 };
 
 // =================================================================
@@ -193,11 +230,11 @@ const createReadMoreScreenContent = () => {
   `;
 };
 
-const createTicket = (hall, date, time, seat, barcode) => {
+const createTicket = (hall, date, time, seat, barcode, ticket) => {
   return `<article class="ticket">
           <div class="ticket__number ticket__number-top">
             <p class="ticket__numberTitle">
-              TICKET NO: <span class="ticket__numberValue">01-02-356-79AB</span>
+              TICKET NO: <span class="ticket__numberValue">${ticket}</span>
             </p>
           </div>
           <div class="ticket__body">
@@ -205,12 +242,14 @@ const createTicket = (hall, date, time, seat, barcode) => {
               <div class="ticket__bodyBarcode">
                 <img
                   class="ticket__barcode"
-                  src="./img/bar-code.svg"
+                  src='../img/bar-code.svg'
                   alt="barcode of your ticket"
                 />
                 <p class="ticket__barcodeValue">${barcode}</p>
               </div>
-              <div class="ticket__bodyImg">
+              <div class="ticket__bodyImg" style="background-image:url(${
+                movie["ticket"]["background src"]
+              });">
                 <p class="ticket__bodySubTitle">ADMIT ONE</p>
                 <h4 class="ticket__bodyTitle">CINEMA TICKET</h4>
               </div>
@@ -245,7 +284,7 @@ const createTicket = (hall, date, time, seat, barcode) => {
           </div>
           <div class="ticket__number ticket__number-bottom">
             <p class="ticket__numberTitle">
-              TICKET NO: <span class="ticket__numberValue">01-02-356-79AB</span>
+              TICKET NO: <span class="ticket__numberValue">${ticket}</span>
             </p>
           </div>
         </article>`;
@@ -259,7 +298,8 @@ const createOrderListContent = () => {
       order["date"],
       order["time"],
       seat,
-      order["barcode"][index]
+      order["barcode"][index],
+      order["ticket"][index]
     );
   });
   return content;
