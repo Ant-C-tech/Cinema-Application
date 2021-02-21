@@ -18,7 +18,7 @@ const movie = {
     premiere: "2021-03-01",
     duration: "1h 39m",
     poster: {
-      "poster src": "../img/poster.jpg", //750x1000
+      "poster src": "./img/poster.jpg", //750x1000
       "poster alt": "vivarium poster",
     },
   },
@@ -43,7 +43,7 @@ const movie = {
       "Box office": "$427,399",
     },
     poster: {
-      "poster src": "../img/secondary-poster.jpg", //750x1125
+      "poster src": "./img/secondary-poster.jpg", //750x1125
       "poster alt": "vivarium poster",
     },
   },
