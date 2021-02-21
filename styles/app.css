@@ -67,6 +67,20 @@ body {
   padding: 0 32px;
 }
 
+main {
+  position: relative;
+  z-index: 10;
+
+  max-width: 1270px;
+
+  overflow: hidden;
+  margin: 40px auto;
+
+  border: 2px solid var(--secondary-color);
+  border-radius: 10px;
+  box-shadow: 5px 9px 20px var(--main-shadow-color);
+}
+
 .trailer {
   position: fixed;
   right: 0;
@@ -77,12 +91,12 @@ body {
 }
 
 /* ========== Choosing Seat Section =========== */
-.choosingSeat {
+.choseSeatSection {
   position: relative;
   display: flex;
   z-index: 10;
 
-  max-width: 1270px;
+  /* max-width: 1270px;
 
   overflow: hidden;
   margin: 0 auto;
@@ -91,7 +105,7 @@ body {
   border-radius: 10px;
   box-shadow: 5px 9px 20px var(--main-shadow-color);
 
-  transition: transform ease-in-out 0.7s;
+  transition: transform ease-in-out 0.7s; */
 }
 
 /* ========== Poster Section =========== */
@@ -165,6 +179,11 @@ body {
 
 .badge-rating {
   position: static;
+  display: flex;
+  align-items: center;
+
+  width: 73px;
+  height: 73px;
 }
 
 .badge-data {
@@ -665,24 +684,18 @@ body {
 
 /* ========== Confirm Ticket Section =========== */
 .confirmTicket,
-.movieDescription {
+.movieDescription,
+.notification {
   position: relative;
 
-  max-width: 1270px;
-  z-index: 10;
-
-  overflow: hidden;
-  margin: 40px auto;
   padding: 15px;
 
-  border: 2px solid var(--secondary-color);
-  border-radius: 10px;
-  box-shadow: 5px 9px 20px var(--main-shadow-color);
   background: var(--main-color);
 }
 
 .confirmTicket__title,
-.movieDescription__title {
+.movieDescription__title,
+.notification__title {
   position: relative;
   text-align: center;
 
@@ -698,7 +711,8 @@ body {
 }
 
 .confirmTicket__title::after,
-.movieDescription__title::after {
+.movieDescription__title::after,
+.notification__title::after {
   position: absolute;
   content: "";
   bottom: -52px;
@@ -728,7 +742,8 @@ body {
 }
 
 .orderFlexWrapper::after,
-.movieDescription__content::after {
+.movieDescription__content::after,
+.notification__content::after {
   position: absolute;
   content: "";
   bottom: 0px;
@@ -978,7 +993,7 @@ body {
 /* ========== /Confirm Ticket Section =========== */
 
 /* ========== Movie Description Section =========== */
-.movieDescription__content {
+.movieDescription__content, .notification__content {
   padding: 0 20px 50px;
 }
 
@@ -1004,6 +1019,23 @@ body {
   color: var(--active-font-color);
 }
 /* ========== /Movie Description Section =========== */
+
+/* ========== Notification screen =========== */
+.notification__content {
+  padding-bottom: 40px;
+
+  border-bottom: 3px solid var(--main-font-color);
+}
+
+.notification__element {
+  text-align: center;
+
+  font-size: 20px;
+  line-height: 1.5;
+  font-family: var(--main-font);
+  color: var(--active-font-color);
+}
+/* ========== /Notification screen =========== */
 
 /* ========== Classes for interaction ========== */
 
@@ -1276,7 +1308,7 @@ body {
     display: none;
   }
 
-  .choosingSeat {
+  .choseSeatSection {
     flex-wrap: wrap;
   }
 
@@ -1327,9 +1359,10 @@ body {
     padding: 0px 0px;
   }
 
-  .choosingSeat,
+  .choseSeatSection,
   .confirmTicket,
-  .movieDescription {
+  .movieDescription,
+  .notification {
     border: none;
     border-radius: 0;
     box-shadow: none;
@@ -1349,7 +1382,8 @@ body {
   }
 
   .confirmTicket,
-  .movieDescription {
+  .movieDescription,
+  .notification {
     margin: 0;
   }
 
@@ -1510,7 +1544,8 @@ body {
   }
 
   .confirmTicket__title,
-  .movieDescription__title {
+  .movieDescription__title,
+  .notification__title {
     font-size: 30px;
   }
 
@@ -1553,7 +1588,7 @@ body {
 }
 
 @media screen and (max-width: 375px) {
-   .movieDate__slider {
+  .movieDate__slider {
     max-width: 225px;
   }
 
