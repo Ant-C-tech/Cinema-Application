@@ -2,6 +2,7 @@
 
 import movie from "./movie.js";
 import textContentForApp from "./textcontent-for-app.js";
+import currentBookingAvailableState from "./current-booking-available-state.js";
 
 const body = document.querySelector("body");
 const main = document.querySelector("main");
@@ -201,6 +202,33 @@ const trailerContent = `
     </video>
   `;
 
+const createContentOfHallTypeSection = () => {
+  let content = "";
+
+  const checkIsAvailable = (hallType) => {
+    if (!currentBookingAvailableState["hallType"][hallType]) {
+      return "disabled";
+    }
+  };
+
+  textContentForApp["seatBookingScreen"]["controlSection"][
+    "hallTypeSection"
+  ].forEach((hallType) => {
+    content += `<label class="movieType__radio">
+        <input
+          class="movieType__radioInput visually-hidden"
+          type="radio"
+          name="movie-type"
+          value="${hallType}"
+          ${checkIsAvailable(hallType)}
+        />
+
+        <span class="movieType__radioText">${hallType}</span>
+      </label>`;
+  });
+  return content;
+};
+
 // createSeatBookingScreen;=====================================================
 const createSeatBookingScreen = `<section id="choseSeatSection" class="choseSeatSection">
   <section class="posterSection">
@@ -244,50 +272,7 @@ const createSeatBookingScreen = `<section id="choseSeatSection" class="choseSeat
   </section>
 
   <section class="controlSection">
-    <section id="hallType" class="movieType">
-      <label class="movieType__radio">
-        <input
-          class="movieType__radioInput visually-hidden"
-          type="radio"
-          name="movie-type"
-          value="General"
-        />
-
-        <span class="movieType__radioText">General</span>
-      </label>
-
-      <label class="movieType__radio">
-        <input
-          class="movieType__radioInput visually-hidden"
-          type="radio"
-          name="movie-type"
-          value="Digital-2D"
-        />
-
-        <span class="movieType__radioText">Digital 2D</span>
-      </label>
-
-      <label class="movieType__radio">
-        <input
-          class="movieType__radioInput visually-hidden"
-          type="radio"
-          name="movie-type"
-          value="IMAX-3D"
-        />
-        <span class="movieType__radioText">IMAX 3D</span>
-      </label>
-
-      <label class="movieType__radio">
-        <input
-          class="movieType__radioInput visually-hidden"
-          type="radio"
-          name="movie-type"
-          value="Cinema 4Dx"
-          disabled
-        />
-        <span class="movieType__radioText">Cinema 4Dx</span>
-      </label>
-    </section>
+    <section id="hallType" class="movieType">${createContentOfHallTypeSection()}</section>
 
     <section id="movieDate" class="movieDate">
       <p id="chosenDate" class="movieDate__currentTime">
@@ -1202,7 +1187,9 @@ const addListenerIntoSeatBookingScreen = () => {
         createControlElements.bind(this, [
           [
             "backToChoseSeatSectionFromReadMore",
-            textContentForApp["movieDescriptionScreen"]["btnBackToMainScreenText"]
+            textContentForApp["movieDescriptionScreen"][
+              "btnBackToMainScreenText"
+            ],
           ],
         ])
       );
