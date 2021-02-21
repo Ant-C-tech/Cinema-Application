@@ -1021,7 +1021,7 @@ const createTicket = (hall, date, time, seat, barcode, ticket) => {
               <div class="ticket__bodyBarcode">
                 <img
                   class="ticket__barcode"
-                  src='../img/bar-code.svg'
+                  src='./img/bar-code.svg'
                   alt="barcode of your ticket"
                 />
                 <p class="ticket__barcodeValue">${barcode}</p>
@@ -1324,8 +1324,6 @@ const addListenerIntoMovieMessageScreen = () => {
   );
 };
 
-// =================================================================
-// =================================================================
 // =================================================================
 
 const initApp = () => {
