@@ -52,6 +52,33 @@ const movie = {
     "barcode src": "./img/bar-code.svg",
     "background src": "./img/poster-bg.jpg",
   },
+
+  "booking available state": {
+    hallType: {
+      General: true,
+      "Digital 2D": true,
+      "IMAX 3D": true,
+      "Cinema 4Dx": false,
+    },
+    day: {
+      "2021-02-21": true,
+      "2021-02-22": true,
+      "2021-02-23": true,
+      "2021-02-24": true,
+      "2021-02-25": false,
+      "2021-02-26": true,
+      "2021-02-27": true,
+      "2021-02-28": true,
+      "2021-03-01": true,
+      "2021-03-02": true,
+    },
+    time: {
+      "14:00": true,
+      "17:00": true,
+      "20:00": true,
+      "23:00": false,
+    },
+  },
 };
 
 export default movie;

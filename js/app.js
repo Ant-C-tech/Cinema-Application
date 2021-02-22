@@ -2,7 +2,7 @@
 
 import movie from "./movie.js";
 import textContentForApp from "./textcontent-for-app.js";
-import currentBookingAvailableState from "./current-booking-available-state.js";
+import seatBookingCurrentAvailableState from "./seat-booking-current-available-state.js";
 
 const body = document.querySelector("body");
 const main = document.querySelector("main");
@@ -136,6 +136,39 @@ const cleanUserOrderObject = () => {
   order["ticketNumber"] = "";
 };
 
+const checkAvailableTimeForToday = () => {
+  const movieTimeCollection = document.querySelectorAll(
+    ".movieTime__radioInput"
+  );
+  if (
+    new Date(Date.now()).toISOString().split("").splice(0, 10).join("") ===
+    document.querySelector("#movieDate input:checked").defaultValue
+  ) {
+    const currentTime = +new Date(Date.now())
+      .toTimeString()
+      .split("")
+      .splice(0, 2)
+      .join("");
+    Array.from(movieTimeCollection).forEach((movieTime) => {
+      if (
+        movieTime.defaultValue.split("").splice(0, 2).join("") <= currentTime
+      ) {
+        movieTime.disabled = true;
+      }
+    });
+  } else {
+    Array.from(movieTimeCollection).forEach((movieTime) => {
+      if (
+        movie["booking available state"]["time"][`${movieTime.defaultValue}`]
+      ) {
+        movieTime.disabled = false;
+      } else {
+        movieTime.disabled = true;
+      }
+    });
+  }
+};
+
 // =================================================================
 
 const changeVisualizationInOrderOverflowContent = () => {
@@ -205,27 +238,114 @@ const trailerContent = `
 const createContentOfHallTypeSection = () => {
   let content = "";
 
-  const checkIsAvailable = (hallType) => {
-    if (!currentBookingAvailableState["hallType"][hallType]) {
+  const checkIsAvailable = (isAvailable) => {
+    if (!isAvailable) {
       return "disabled";
     }
   };
 
-  textContentForApp["seatBookingScreen"]["controlSection"][
-    "hallTypeSection"
-  ].forEach((hallType) => {
+  Object.keys(movie["booking available state"]["hallType"]).forEach((key) => {
     content += `<label class="movieType__radio">
-        <input
-          class="movieType__radioInput visually-hidden"
-          type="radio"
-          name="movie-type"
-          value="${hallType}"
-          ${checkIsAvailable(hallType)}
-        />
-
-        <span class="movieType__radioText">${hallType}</span>
+      <input
+      class="movieType__radioInput visually-hidden"
+      type="radio"
+      name="movie-type"
+      value="${key}"
+      ${checkIsAvailable(movie["booking available state"]["hallType"][key])}
+      />
+      <span class="movieType__radioText">${key}</span>
       </label>`;
   });
+
+  return content;
+};
+
+const createContentOfMovieDateSection = () => {
+  let content = "";
+
+  const checkIsAvailable = (isAvailable, day) => {
+    if (!isAvailable) {
+      return "disabled";
+    }
+    if (
+      new Date(Date.now()).getMonth() >= new Date(day).getMonth() &&
+      +new Date(Date.now()).toDateString().split(" ").splice(2, 1).join(" ") -
+        1 >=
+        new Date(day).toDateString().split(" ").splice(2, 1).join(" ")
+    ) {
+      return "disabled";
+    } // Disable to order ticket for yesterday or earlier day
+  };
+
+  Object.keys(movie["booking available state"]["day"]).forEach((key) => {
+    content += `
+      <label class="movieDate__radio">
+        <input
+        class="movieDate__radioInput visually-hidden"
+        type="radio"
+        name="movie-date"
+        value=${key}
+         ${checkIsAvailable(movie["booking available state"]["day"][key], key)}
+        />
+        <span class="movieDate__radioSupText">
+        ${new Date(key).toDateString().split(" ").splice(0, 1).join(" ")}
+        </span>
+        <time class="movieDate__radioText" datetime=${key}>
+        ${new Date(key).toDateString().split(" ").splice(2, 1).join(" ")}
+        </time>
+      </label>`;
+  });
+
+  return content;
+};
+
+const createContentOfMovieTimeSection = () => {
+  let content = "";
+
+  const checkIsAvailable = (isAvailable) => {
+    if (!isAvailable) {
+      return "disabled";
+    }
+  };
+
+  Object.keys(movie["booking available state"]["time"]).forEach((key) => {
+    content += `
+      <label class="movieTime__radio">
+        <input
+          class="movieTime__radioInput visually-hidden"
+          type="radio"
+          name="movie-time"
+          value=${key}
+          ${checkIsAvailable(movie["booking available state"]["time"][key])}
+        />
+        <time class="movieTime__radioText" datetime=${key}>${key}</time>
+      </label>`;
+  });
+
+  return content;
+};
+
+const createContentOfHallSection = () => {
+  let content = "";
+
+  textContentForApp["seatBookingScreen"]["controlSection"][
+    "hall information"
+  ].forEach((row) => {
+    content += '<div class="hall__row">';
+    row.forEach((seat) => {
+      content += `
+    <label class="seat">
+      <input
+        class="seat__input visually-hidden"
+        type="checkbox"
+        value="1"
+      />
+      <span class="seat__mask">${seat}</span>
+    </label>`;
+    });
+    content += "</div>";
+  });
+
   return content;
 };
 
@@ -276,690 +396,62 @@ const createSeatBookingScreen = `<section id="choseSeatSection" class="choseSeat
 
     <section id="movieDate" class="movieDate">
       <p id="chosenDate" class="movieDate__currentTime">
-        <time datetime="2021-03-02">We are waiting you</time>
+        <time datetime="2021-03-02">
+          ${
+            textContentForApp["seatBookingScreen"]["controlSection"][
+              "movieDateHintStartContent"
+            ]
+          }
+        </time>
       </p>
 
       <div class="flexRow">
         <a id="previousDayBtn" href="#" class="btnMovieDate" tabindex="0">
-          &#9668;
+          ${
+            textContentForApp["seatBookingScreen"]["controlSection"][
+              "previousDayBtn"
+            ]
+          }
         </a>
-
         <div class="movieDate__slider">
           <div id="dateListWrapper" class="flexRow movieDate__dateListWrapper">
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-01"
-              />
-              <span
-                class="movieDate__radioSupText movieDate__radioSupText-current"
-              >
-                Today
-              </span>
-              <time class="movieDate__radioText" datetime="2021-03-01">1</time>
-            </label>
-
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-02"
-              />
-              <span class="movieDate__radioSupText">Tue</span>
-              <time class="movieDate__radioText" datetime="2021-03-02">2</time>
-            </label>
-
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-03"
-              />
-              <span class="movieDate__radioSupText">Wed</span>
-              <time class="movieDate__radioText" datetime="2021-03-03">3</time>
-            </label>
-
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-04"
-              />
-              <span class="movieDate__radioSupText">Thu</span>
-              <time class="movieDate__radioText" datetime="2021-03-04">4</time>
-            </label>
-
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-05"
-                disabled
-              />
-              <span class="movieDate__radioSupText">Fri</span>
-              <time class="movieDate__radioText" datetime="2021-03-05">
-                5
-              </time>
-            </label>
-
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-06"
-              />
-              <span class="movieDate__radioSupText">Sat</span>
-              <time class="movieDate__radioText" datetime="2021-03-06">
-                6
-              </time>
-            </label>
-
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-07"
-              />
-              <span class="movieDate__radioSupText">Sun</span>
-              <time class="movieDate__radioText" datetime="2021-03-07">
-                7
-              </time>
-            </label>
-
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-08"
-              />
-              <span class="movieDate__radioSupText">Mon</span>
-              <time class="movieDate__radioText" datetime="2021-03-08">
-                8
-              </time>
-            </label>
-
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-09"
-              />
-              <span class="movieDate__radioSupText">Tue</span>
-              <time class="movieDate__radioText" datetime="2021-03-09">
-                9
-              </time>
-            </label>
-
-            <label class="movieDate__radio">
-              <input
-                class="movieDate__radioInput visually-hidden"
-                type="radio"
-                name="movie-date"
-                value="2021-03-10"
-              />
-              <span class="movieDate__radioSupText">Wed</span>
-              <time class="movieDate__radioText" datetime="2021-03-10">
-                10
-              </time>
-            </label>
+            ${createContentOfMovieDateSection()}
           </div>
         </div>
-
         <a id="nextDayBtn" href="#" class="btnMovieDate" tabindex="0">
-          &#9658;</a
-        >
+          ${
+            textContentForApp["seatBookingScreen"]["controlSection"][
+              "nextDayBtn"
+            ]
+          }
+        </a>
       </div>
     </section>
 
     <section id="movieTime" class="movieTime">
-      <p class="movieTime__title">Time</p>
+      <p class="movieTime__title">
+      ${
+        textContentForApp["seatBookingScreen"]["controlSection"][
+          "movieTimeTitle"
+        ]
+      }
+      </p>
 
-      <div class="flexRow flexRow-between">
-        <label class="movieTime__radio">
-          <input
-            class="movieTime__radioInput visually-hidden"
-            type="radio"
-            name="movie-time"
-            value="14:00"
-          />
-          <time class="movieTime__radioText" datetime="14:00">14:00</time>
-        </label>
-
-        <label class="movieTime__radio">
-          <input
-            class="movieTime__radioInput visually-hidden"
-            type="radio"
-            name="movie-time"
-            value="17:00"
-          />
-          <time class="movieTime__radioText" datetime="17:00">17:00</time>
-        </label>
-
-        <label class="movieTime__radio">
-          <input
-            class="movieTime__radioInput visually-hidden"
-            type="radio"
-            name="movie-time"
-            value="20:00"
-          />
-          <time class="movieTime__radioText" datetime="20:00">20:00</time>
-        </label>
-
-        <label class="movieTime__radio">
-          <input
-            class="movieTime__radioInput visually-hidden"
-            type="radio"
-            name="movie-time"
-            value="23:00"
-            disabled
-          />
-          <time class="movieTime__radioText" datetime="23:00">23:00</time>
-        </label>
+      <div id="movieTimeContent" class="flexRow flexRow-between">
+        ${createContentOfMovieTimeSection()}
       </div>
     </section>
 
     <section id="hall" class="hall">
-      <p class="hall__screen">Screen</p>
+      <p class="hall__screen">
+        ${
+          textContentForApp["seatBookingScreen"]["controlSection"][
+            "screenTitle"
+          ]
+        }
+      </p>
 
-      <div class="hall__row">
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="1"
-            disabled
-          />
-          <span class="seat__mask">1</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="2"
-            disabled
-          />
-          <span class="seat__mask">2</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="3"
-            disabled
-          />
-          <span class="seat__mask">3</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="4"
-          />
-          <span class="seat__mask">4</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="5"
-          />
-          <span class="seat__mask">5</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="6"
-          />
-          <span class="seat__mask">6</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="7"
-            disabled
-          />
-          <span class="seat__mask">7</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="8"
-            disabled
-          />
-          <span class="seat__mask">8</span>
-        </label>
-      </div>
-
-      <div class="hall__row">
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="9"
-          />
-          <span class="seat__mask">9</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="10"
-          />
-          <span class="seat__mask">10</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="11"
-            disabled
-          />
-          <span class="seat__mask">11</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="12"
-            disabled
-          />
-          <span class="seat__mask">12</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="13"
-          />
-          <span class="seat__mask">13</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="14"
-            disabled
-          />
-          <span class="seat__mask">14</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="15"
-          />
-          <span class="seat__mask">15</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="16"
-          />
-          <span class="seat__mask">16</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="17"
-          />
-          <span class="seat__mask">17</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="18"
-            disabled
-          />
-          <span class="seat__mask">18</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="19"
-          />
-          <span class="seat__mask">19</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="20"
-            disabled
-          />
-          <span class="seat__mask">20</span>
-        </label>
-      </div>
-
-      <div class="hall__row">
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="21"
-          />
-          <span class="seat__mask">21</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="22"
-          />
-          <span class="seat__mask">22</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="23"
-            disabled
-          />
-          <span class="seat__mask">23</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="24"
-            disabled
-          />
-          <span class="seat__mask">24</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="25"
-            disabled
-          />
-          <span class="seat__mask">25</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="26"
-            disabled
-          />
-          <span class="seat__mask">26</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="27"
-          />
-          <span class="seat__mask">27</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="28"
-          />
-          <span class="seat__mask">28</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="29"
-          />
-          <span class="seat__mask">29</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="30"
-            disabled
-          />
-          <span class="seat__mask">30</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="31"
-            disabled
-          />
-          <span class="seat__mask">31</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="32"
-          />
-          <span class="seat__mask">32</span>
-        </label>
-      </div>
-
-      <div class="hall__row">
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="33"
-            disabled
-          />
-          <span class="seat__mask">33</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="34"
-          />
-          <span class="seat__mask">34</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="35"
-            disabled
-          />
-          <span class="seat__mask">35</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="36"
-            disabled
-          />
-          <span class="seat__mask">36</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="37"
-          />
-          <span class="seat__mask">37</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="38"
-          />
-          <span class="seat__mask">38</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="39"
-            disabled
-          />
-          <span class="seat__mask">39</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="40"
-            disabled
-          />
-          <span class="seat__mask">40</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="41"
-            disabled
-          />
-          <span class="seat__mask">41</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="42"
-          />
-          <span class="seat__mask">42</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="43"
-          />
-          <span class="seat__mask">43</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="44"
-          />
-          <span class="seat__mask">44</span>
-        </label>
-      </div>
-
-      <div class="hall__row">
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="45"
-          />
-          <span class="seat__mask">45</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="46"
-          />
-          <span class="seat__mask">46</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="47"
-          />
-          <span class="seat__mask">47</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="48"
-            disabled
-          />
-          <span class="seat__mask">48</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="49"
-            disabled
-          />
-          <span class="seat__mask">49</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="50"
-            disabled
-          />
-          <span class="seat__mask">50</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="51"
-            disabled
-          />
-          <span class="seat__mask">51</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="52"
-          />
-          <span class="seat__mask">52</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="53"
-          />
-          <span class="seat__mask">53</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="54"
-          />
-          <span class="seat__mask">54</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="55"
-          />
-          <span class="seat__mask">55</span>
-        </label>
-        <label class="seat">
-          <input
-            class="seat__input visually-hidden"
-            type="checkbox"
-            value="56"
-            disabled
-          />
-          <span class="seat__mask">56</span>
-        </label>
-      </div>
+    <div id="hallContent">${createContentOfHallSection()}</div>
     </section>
 
     <section class="hall__legend">
@@ -1172,8 +664,11 @@ const dateSliderInit = () => {
 
 // ============================ Listeners =====================================
 const addListenerIntoSeatBookingScreen = () => {
+  dateSliderInit();
+
   const readMoreAboutMovieButton = document.querySelector("#btnReadMore");
   const buyTicketButton = document.querySelector("#buyTicket");
+  const movieDateSection = document.querySelector("#movieDate");
 
   readMoreAboutMovieButton.addEventListener(
     "click",
@@ -1205,7 +700,11 @@ const addListenerIntoSeatBookingScreen = () => {
     { once: true }
   );
 
-  dateSliderInit();
+  movieDateSection.addEventListener("click", ({ target }) => {
+    if (target.classList.contains("movieDate__radioInput")) {
+      checkAvailableTimeForToday();
+    }
+  });
 
   buyTicketButton.addEventListener(
     "click",
