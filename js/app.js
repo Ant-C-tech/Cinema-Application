@@ -308,13 +308,13 @@ const changeScreen = (
         () => {
           removeClassFromElement(main, hidePositioning);
           removeClassFromElement(main, showAnimation);
-          changeVisualizationInOrderOverflowContent();
           callback && callback();
         },
         { once: true }
       );
       addClassToElement(main, hidePositioning);
       main.innerHTML = modalScreenContent;
+      changeVisualizationInOrderOverflowContent();
       removeClassFromElement(main, hideAnimation);
       addClassToElement(main, showAnimation);
     },
