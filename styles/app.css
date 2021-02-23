@@ -666,13 +666,25 @@ main {
 
   background: var(--secondary-color);
 
-  transition: transform ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
 }
 
 .siteButton:hover,
 .siteButton:focus {
   outline: none;
   transform: scale(1.2);
+}
+
+.siteButton-disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background: transparent;
+}
+
+.siteButton-disabled:hover,
+.siteButton-disabled:focus {
+  outline: none;
+  transform: scale(1);
 }
 
 .siteButton__img {
@@ -951,6 +963,12 @@ main {
   position: static;
 
   margin: 8px 10px;
+
+  font-size: 16px;
+}
+
+.badge__date {
+  white-space: nowrap;
 }
 
 .ticket__bodyMovieSeat {
@@ -993,7 +1011,8 @@ main {
 /* ========== /Confirm Ticket Section =========== */
 
 /* ========== Movie Description Section =========== */
-.movieDescription__content, .notification__content {
+.movieDescription__content,
+.notification__content {
   padding: 0 20px 50px;
 }
 

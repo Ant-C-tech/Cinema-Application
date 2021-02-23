@@ -2,11 +2,12 @@
 
 import movie from "./movie.js";
 import textContentForApp from "./textcontent-for-app.js";
-import seatBookingCurrentAvailableState from "./seat-booking-current-available-state.js";
+import takenSeatsState from "./taken-seats-state.js";
 
 const body = document.querySelector("body");
 const main = document.querySelector("main");
 
+// After order confirmation send to server
 const order = {
   "hall type": "",
   date: "",
@@ -16,7 +17,7 @@ const order = {
   ticketNumber: "",
 };
 
-// =================================================================
+// =========================== Helpers ======================================
 
 const addClassToElement = (element, className) => {
   element.classList.add(`${className}`);
@@ -26,11 +27,11 @@ const removeClassFromElement = (element, className) => {
   element.classList.remove(`${className}`);
 };
 
-const createDOMElement = (elementType, content, className) => {
-  return `<${elementType} class = "${className}">${content}</${elementType}>`;
-};
-
 const createDoomElementsFromObject = (object, typeOfItem, className) => {
+  const createDOMElement = (elementType, content, className) => {
+    return `<${elementType} class = "${className}">${content}</${elementType}>`;
+  };
+
   let content = "";
   Object.keys(object).forEach((key) => {
     content += createDOMElement(
@@ -42,12 +43,82 @@ const createDoomElementsFromObject = (object, typeOfItem, className) => {
   return content;
 };
 
-const createControlElements = (buttonSet) => {
-  let controlElements = "";
-  buttonSet.forEach((button) => {
-    controlElements += `<a id="${button[0]}" class="siteButton siteButton-text" href="#">${button[1]}</a>`;
+const getChosenAttributes = (attributeID) => {
+  const chosenAttribute = document.querySelector(`${attributeID} input:checked`)
+    .defaultValue;
+  return chosenAttribute;
+};
+
+// ======================== Main Working Functions =========================================
+
+const dateSliderInit = () => {
+  const sliderShowedLength = 5;
+
+  const movieDateSection = document.querySelector("#movieDate");
+  const hintElement = document.querySelector("#chosenDate");
+  const dateListWrapper = document.querySelector("#dateListWrapper");
+  const sliderElementsCollection = document.querySelectorAll(
+    ".movieDate__radio"
+  );
+
+  const nextDayButton = document.querySelector("#nextDayBtn");
+  const previousDayButton = document.querySelector("#previousDayBtn");
+
+  let sliderElementWidth = sliderElementsCollection[0].offsetWidth;
+  let currentFirstElementIndex = 0;
+  dateListWrapper.style.left = 0;
+
+  const getSliderPosition = () => {
+    return (dateListWrapper.style.left =
+      -(currentFirstElementIndex * sliderElementWidth) + "px");
+  };
+
+  const checkButtonsIsAvailable = () => {
+    if (currentFirstElementIndex < 1) {
+      addClassToElement(previousDayButton, "btnMovieDate-disabled");
+      previousDayButton.setAttribute("tabindex", "-1");
+    } else {
+      removeClassFromElement(previousDayButton, "btnMovieDate-disabled");
+      previousDayButton.setAttribute("tabindex", "0");
+    }
+    if (
+      currentFirstElementIndex >
+      sliderElementsCollection.length - sliderShowedLength - 1
+    ) {
+      addClassToElement(nextDayButton, "btnMovieDate-disabled");
+      nextDayButton.setAttribute("tabindex", "-1");
+    } else {
+      removeClassFromElement(nextDayButton, "btnMovieDate-disabled");
+      nextDayButton.setAttribute("tabindex", "0");
+    }
+  };
+
+  movieDateSection.addEventListener("click", function ({ target }) {
+    if (target.getAttribute("id") === "nextDayBtn") {
+      currentFirstElementIndex++;
+      getSliderPosition();
+      checkButtonsIsAvailable();
+      event.preventDefault();
+    } else if (target.getAttribute("id") === "previousDayBtn") {
+      currentFirstElementIndex--;
+      getSliderPosition();
+      checkButtonsIsAvailable();
+      event.preventDefault();
+    } else if (target.classList.contains("movieDate__radioInput")) {
+      const hintContent = new Date(target.defaultValue)
+        .toDateString()
+        .split(" ")
+        .splice(0, 3)
+        .join(" ");
+      changeContentOfElement(hintElement, hintContent);
+    }
   });
-  return controlElements;
+
+  window.addEventListener("resize", () => {
+    sliderElementWidth = sliderElementsCollection[0].offsetWidth;
+  });
+
+  checkButtonsIsAvailable();
 };
 
 const writeDataIntoUserOrderObject = () => {
@@ -70,13 +141,6 @@ const writeDataIntoUserOrderObject = () => {
 
   const getRandomCharNumberString = (length) => {
     return Math.random().toString(36).substr(2, length).toUpperCase();
-  };
-
-  const getChosenAttributes = (attributeID) => {
-    const chosenAttribute = document.querySelector(
-      `${attributeID} input:checked`
-    ).defaultValue;
-    return chosenAttribute;
   };
 
   const getChosenSeats = () => {
@@ -169,7 +233,46 @@ const checkAvailableTimeForToday = () => {
   }
 };
 
-// =================================================================
+const checkIsAvailableToChoseSeats = () => {
+  const getCheckedInput = (id) => {
+    return document.querySelector(`${id} input:checked`);
+  };
+
+  return (
+    getCheckedInput("#hallType") !== null &&
+    getCheckedInput("#movieDate") !== null &&
+    getCheckedInput("#movieTime") !== null
+  );
+};
+
+const checkIsAvailableToOrderSeats = () => {
+  const getCheckedInput = (id) => {
+    return document.querySelector(`${id} input:checked`);
+  };
+
+  return (
+    getCheckedInput("#hallType") !== null &&
+    getCheckedInput("#movieDate") !== null &&
+    getCheckedInput("#movieTime") !== null &&
+    getCheckedInput("#hall") !== null
+  );
+};
+
+const addTakenSeatsToHallSection = () => {
+  const seats = document.querySelectorAll(".seat__input");
+
+  Array.from(seats).forEach((seat) => {
+    seat.disabled = false;
+  });
+
+  takenSeatsState[getChosenAttributes("#movieDate")][
+    getChosenAttributes("#hallType")
+  ][getChosenAttributes("#movieTime")].forEach((seat) => {
+    seats[seat].disabled = true;
+  });
+};
+
+// ======================== Animation and Visualization Functions =========================================
 
 const changeVisualizationInOrderOverflowContent = () => {
   const getWindowHeight = document.documentElement.clientHeight;
@@ -182,7 +285,7 @@ const changeVisualizationInOrderOverflowContent = () => {
   }
 };
 
-const changeContent = (targetElement, content) => {
+const changeContentOfElement = (targetElement, content) => {
   targetElement.addEventListener("transitionend", () => {
     targetElement.innerHTML = content;
     removeClassFromElement(targetElement, "opacityHide");
@@ -190,7 +293,7 @@ const changeContent = (targetElement, content) => {
   addClassToElement(targetElement, "opacityHide");
 };
 
-const changeMainContent = (
+const changeScreen = (
   hideAnimation,
   hidePositioning,
   modalScreenContent,
@@ -220,7 +323,7 @@ const changeMainContent = (
   addClassToElement(main, hideAnimation);
 };
 
-// =================================================================
+// ============================== Create Content Functions ===================================
 
 const trailerContent = `
       <video id="trailer"
@@ -338,7 +441,7 @@ const createContentOfHallSection = () => {
       <input
         class="seat__input visually-hidden"
         type="checkbox"
-        value="1"
+        value=${seat}
       />
       <span class="seat__mask">${seat}</span>
     </label>`;
@@ -349,7 +452,6 @@ const createContentOfHallSection = () => {
   return content;
 };
 
-// createSeatBookingScreen;=====================================================
 const createSeatBookingScreen = `<section id="choseSeatSection" class="choseSeatSection">
   <section class="posterSection">
     <div class="textContent">
@@ -375,13 +477,18 @@ const createSeatBookingScreen = `<section id="choseSeatSection" class="choseSeat
     <div class="badge badge-data">
       <p>${
         textContentForApp["seatBookingScreen"]["posterSection"]["premiereText"]
-      }<br /><time datetime=${movie["poster section"]["premiere"]}>${new Date(
-  movie["poster section"]["premiere"]
-)
-  .toDateString()
-  .split(" ")
-  .splice(1, 2)
-  .join(" ")}</time><br />${movie["poster section"]["duration"]}</p>
+      }
+        <br />
+        <time datetime=${movie["poster section"]["premiere"]}>
+        ${new Date(movie["poster section"]["premiere"])
+          .toDateString()
+          .split(" ")
+          .splice(1, 2)
+          .join(" ")}
+        </time>
+        <br />
+        ${movie["poster section"]["duration"]}
+      </p>
     </div>
 
     <img
@@ -391,7 +498,7 @@ const createSeatBookingScreen = `<section id="choseSeatSection" class="choseSeat
     />
   </section>
 
-  <section class="controlSection">
+  <section id="controlSection" class="controlSection">
     <section id="hallType" class="movieType">${createContentOfHallTypeSection()}</section>
 
     <section id="movieDate" class="movieDate">
@@ -455,18 +562,45 @@ const createSeatBookingScreen = `<section id="choseSeatSection" class="choseSeat
     </section>
 
     <section class="hall__legend">
-      <p class="hall__legendItem hall__legendItem-available">Available</p>
-      <p class="hall__legendItem hall__legendItem-taken">Taken</p>
-      <p class="hall__legendItem hall__legendItem-selection">Your selection</p>
-      <a id="buyTicket" class="siteButton" href="#"
-        ><img
-          class="siteButton__img"
-          src="img/shopping-cart.svg"
-          alt="shopping cart"
-      /></a>
+      <p class="hall__legendItem hall__legendItem-available">
+        ${
+          textContentForApp["seatBookingScreen"]["controlSection"][
+            "hallSeatHintAvailable"
+          ]
+        }
+      </p>
+      <p class="hall__legendItem hall__legendItem-taken">
+        ${
+          textContentForApp["seatBookingScreen"]["controlSection"][
+            "hallSeatHintTaken"
+          ]
+        }
+      </p>
+      <p class="hall__legendItem hall__legendItem-selection">
+        ${
+          textContentForApp["seatBookingScreen"]["controlSection"][
+            "hallSeatHintSelected"
+          ]
+        }
+      </p>
+      <a id="buyTicket" class="siteButton siteButton-disabled" href="#">
+        <img
+            class="siteButton__img"
+            src="img/shopping-cart.svg"
+            alt="shopping cart"
+        />
+      </a>
     </section>
   </section>
 </section>`;
+
+const createControlElements = (buttonSet) => {
+  let controlElements = "";
+  buttonSet.forEach((button) => {
+    controlElements += `<a id="${button[0]}" class="siteButton siteButton-text" href="#">${button[1]}</a>`;
+  });
+  return controlElements;
+};
 
 const createModalScreen = (
   sectionClass,
@@ -539,12 +673,17 @@ const createTicket = (hall, date, time, seat, barcode, ticket) => {
               </div>
               <div class="ticket__bodyMovieDate">
                 <div class="badge badge-data badge-ticket">
-                  <p>${date
-                    .toDateString()
-                    .split(" ")
-                    .splice(0, 3)
-                    .join(" ")}</p>
-                  <p>${time}</p>
+                <p class="badge__day">${date
+                  .toDateString()
+                  .split(" ")
+                  .splice(0, 1)
+                  .join(" ")}</p>
+                <p class="badge__date">${date
+                  .toDateString()
+                  .split(" ")
+                  .splice(1, 2)
+                  .join(" ")}</p>
+                  <p class="badge__time">${time}</p>
                 </div>
               </div>
               <div class="ticket__bodyMovieSeat">
@@ -579,87 +718,15 @@ const createOrderListContent = () => {
 const createMessageScreenContent = () => {
   return `
   <p class="notification__element">
-    Your order has been paid.
+    ${textContentForApp["notificationScreen"]["notificationScreenTextContent"]["part1"]}
   </p>
   <p class="notification__element">
-    Within a few minutes you will receive an email with your tickets.
+    ${textContentForApp["notificationScreen"]["notificationScreenTextContent"]["part2"]}
   </p>
   <p class="notification__element">
-    See you at the cinema theater!
+    ${textContentForApp["notificationScreen"]["notificationScreenTextContent"]["part3"]}
   </p>
   `;
-};
-
-// ============================ Slider =====================================
-
-const dateSliderInit = () => {
-  const sliderShowedLength = 5;
-
-  const movieDateSection = document.querySelector("#movieDate");
-  const hintElement = document.querySelector("#chosenDate");
-  const dateListWrapper = document.querySelector("#dateListWrapper");
-  const sliderElementsCollection = document.querySelectorAll(
-    ".movieDate__radio"
-  );
-
-  const nextDayButton = document.querySelector("#nextDayBtn");
-  const previousDayButton = document.querySelector("#previousDayBtn");
-
-  let sliderElementWidth = sliderElementsCollection[0].offsetWidth;
-  let currentFirstElementIndex = 0;
-  dateListWrapper.style.left = 0;
-
-  const getSliderPosition = () => {
-    return (dateListWrapper.style.left =
-      -(currentFirstElementIndex * sliderElementWidth) + "px");
-  };
-
-  const checkButtonsIsAvailable = () => {
-    if (currentFirstElementIndex < 1) {
-      addClassToElement(previousDayButton, "btnMovieDate-disabled");
-      previousDayButton.setAttribute("tabindex", "-1");
-    } else {
-      removeClassFromElement(previousDayButton, "btnMovieDate-disabled");
-      previousDayButton.setAttribute("tabindex", "0");
-    }
-    if (
-      currentFirstElementIndex >
-      sliderElementsCollection.length - sliderShowedLength - 1
-    ) {
-      addClassToElement(nextDayButton, "btnMovieDate-disabled");
-      nextDayButton.setAttribute("tabindex", "-1");
-    } else {
-      removeClassFromElement(nextDayButton, "btnMovieDate-disabled");
-      nextDayButton.setAttribute("tabindex", "0");
-    }
-  };
-
-  movieDateSection.addEventListener("click", function ({ target }) {
-    if (target.getAttribute("id") === "nextDayBtn") {
-      currentFirstElementIndex++;
-      getSliderPosition();
-      checkButtonsIsAvailable();
-      event.preventDefault();
-    } else if (target.getAttribute("id") === "previousDayBtn") {
-      currentFirstElementIndex--;
-      getSliderPosition();
-      checkButtonsIsAvailable();
-      event.preventDefault();
-    } else if (target.classList.contains("movieDate__radioInput")) {
-      const hintContent = new Date(target.defaultValue)
-        .toDateString()
-        .split(" ")
-        .splice(0, 3)
-        .join(" ");
-      changeContent(hintElement, hintContent);
-    }
-  });
-
-  window.addEventListener("resize", () => {
-    sliderElementWidth = sliderElementsCollection[0].offsetWidth;
-  });
-
-  checkButtonsIsAvailable();
 };
 
 // ============================ Listeners =====================================
@@ -668,7 +735,7 @@ const addListenerIntoSeatBookingScreen = () => {
 
   const readMoreAboutMovieButton = document.querySelector("#btnReadMore");
   const buyTicketButton = document.querySelector("#buyTicket");
-  const movieDateSection = document.querySelector("#movieDate");
+  const controlSection = document.querySelector("#controlSection");
 
   readMoreAboutMovieButton.addEventListener(
     "click",
@@ -689,7 +756,7 @@ const addListenerIntoSeatBookingScreen = () => {
         ])
       );
 
-      changeMainContent(
+      changeScreen(
         "hideAnimationForNextScreenVertical",
         "angle90_vertical",
         modalElementContent,
@@ -700,39 +767,63 @@ const addListenerIntoSeatBookingScreen = () => {
     { once: true }
   );
 
-  movieDateSection.addEventListener("click", ({ target }) => {
+  controlSection.addEventListener("click", ({ target }) => {
     if (target.classList.contains("movieDate__radioInput")) {
       checkAvailableTimeForToday();
     }
+
+    if (
+      target.tagName.toLowerCase() === "input" &&
+      checkIsAvailableToChoseSeats()
+    ) {
+      addTakenSeatsToHallSection();
+    }
+
+    if (
+      target.tagName.toLowerCase() === "input" &&
+      checkIsAvailableToOrderSeats()
+    ) {
+      removeClassFromElement(buyTicketButton, "siteButton-disabled");
+
+      buyTicketButton.addEventListener(
+        "click",
+        () => {
+          writeDataIntoUserOrderObject();
+
+          const modalElementContent = createModalScreen(
+            "confirmTicket",
+            "confirmTicket__title",
+            textContentForApp["confirmTicketScreen"][
+              "confirmTicketScreenTitle"
+            ],
+            "movieDescription__content",
+            createOrderListContent,
+            createControlElements.bind(this, [
+              [
+                "backToChoseSeatSectionFromConfirmTicketScreen",
+                textContentForApp["confirmTicketScreen"][
+                  "btnBackToMainScreenText"
+                ],
+              ],
+              [
+                "confirmOrder",
+                textContentForApp["confirmTicketScreen"]["btnConfirmTicket"],
+              ],
+            ])
+          );
+
+          changeScreen(
+            "hideAnimationForNextScreenHorizontal",
+            "angle90_horizontal",
+            modalElementContent,
+            "showAnimationForNextScreenHorizontal",
+            addListenerIntoConfirmTicketScreen
+          );
+        },
+        { once: true }
+      );
+    }
   });
-
-  buyTicketButton.addEventListener(
-    "click",
-    () => {
-      writeDataIntoUserOrderObject();
-
-      const modalElementContent = createModalScreen(
-        "confirmTicket",
-        "confirmTicket__title",
-        "Your order:",
-        "movieDescription__content",
-        createOrderListContent,
-        createControlElements.bind(this, [
-          ["backToChoseSeatSectionFromConfirmTicketScreen", "Cancel"],
-          ["confirmOrder", "Take it"],
-        ])
-      );
-
-      changeMainContent(
-        "hideAnimationForNextScreenHorizontal",
-        "angle90_horizontal",
-        modalElementContent,
-        "showAnimationForNextScreenHorizontal",
-        addListenerIntoConfirmTicketScreen
-      );
-    },
-    { once: true }
-  );
 };
 
 const addListenerIntoMovieDescriptionScreen = () => {
@@ -743,7 +834,7 @@ const addListenerIntoMovieDescriptionScreen = () => {
   backButton.addEventListener(
     "click",
     () => {
-      changeMainContent(
+      changeScreen(
         "hideAnimationForPreviousScreenVertical",
         "angle-90_vertical",
         createSeatBookingScreen,
@@ -764,7 +855,7 @@ const addListenerIntoConfirmTicketScreen = () => {
   backButton.addEventListener(
     "click",
     () => {
-      changeMainContent(
+      changeScreen(
         "hideAnimationForPreviousScreenHorizontal",
         "angle-90_horizontal",
         createSeatBookingScreen,
@@ -783,15 +874,18 @@ const addListenerIntoConfirmTicketScreen = () => {
       const modalElementContent = createModalScreen(
         "notification",
         "notification__title",
-        "Thank You. Have a nice watching!",
+        textContentForApp["notificationScreen"]["notificationScreenTitle"],
         "notification__content",
         createMessageScreenContent,
         createControlElements.bind(this, [
-          ["backToChoseSeatSectionFromMessageScreen", "Great!"],
+          [
+            "backToChoseSeatSectionFromMessageScreen",
+            textContentForApp["notificationScreen"]["btnBackToMainScreenText"],
+          ],
         ])
       );
 
-      changeMainContent(
+      changeScreen(
         "hideAnimationForNextScreenVertical",
         "angle90_vertical",
         modalElementContent,
@@ -811,7 +905,7 @@ const addListenerIntoMovieMessageScreen = () => {
   backButton.addEventListener(
     "click",
     () => {
-      changeMainContent(
+      changeScreen(
         "hideAnimationForPreviousScreenVertical",
         "angle-90_vertical",
         createSeatBookingScreen,
@@ -822,8 +916,6 @@ const addListenerIntoMovieMessageScreen = () => {
     { once: true }
   );
 };
-
-// =================================================================
 
 const initApp = () => {
   main.insertAdjacentHTML("beforebegin", trailerContent);

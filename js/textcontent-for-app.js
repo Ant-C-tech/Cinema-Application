@@ -1,5 +1,7 @@
 "use strict";
 
+//Source for page administration. Add once, change in need.
+
 const textContentForApp = {
   seatBookingScreen: {
     posterSection: {
@@ -12,6 +14,9 @@ const textContentForApp = {
       nextDayBtn: "&#9658;",
       movieTimeTitle: "Time",
       screenTitle: "Screen",
+      hallSeatHintAvailable: "Available",
+      hallSeatHintTaken: "Taken",
+      hallSeatHintSelected: "Your selection",
       "hall information": [
         [1, 2, 3, 4, 5, 6, 7, 8],
         [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
@@ -23,6 +28,21 @@ const textContentForApp = {
   },
   movieDescriptionScreen: {
     btnBackToMainScreenText: "Back",
+  },
+  confirmTicketScreen: {
+    confirmTicketScreenTitle: "Your order:",
+    btnBackToMainScreenText: "Cancel",
+    btnConfirmTicket: "Take it",
+  },
+  notificationScreen: {
+    notificationScreenTitle: "Thank You. Have a nice watching!",
+    btnBackToMainScreenText: "Great!",
+    notificationScreenTextContent: {
+      part1: "Your order has been paid.",
+      part2:
+        "Within a few minutes you will receive an email with your tickets.",
+      part3: "See you at the cinema theater!",
+    },
   },
 };
 

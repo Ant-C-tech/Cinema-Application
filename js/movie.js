@@ -1,5 +1,7 @@
 "use strict";
 
+//Main information about movie. Add once before premiere.
+
 const movie = {
   title: "Vivarium",
   trailer: {
