@@ -44,9 +44,15 @@ const createDoomElementsFromObject = (object, typeOfItem, className) => {
 };
 
 const getChosenAttributes = (attributeID) => {
-  const chosenAttribute = document.querySelector(`${attributeID} input:checked`)
-    .defaultValue;
-  return chosenAttribute;
+  return document.querySelector(`${attributeID} input:checked`).defaultValue;
+};
+
+const getMonthDayFromDate = (date) => {
+  new Date(date).toDateString().split(" ").splice(1, 2).join(" ");
+};
+
+const getWeekdayFromDate = (date) => {
+  return new Date(date).toDateString().split(" ").splice(0, 1).join(" ");
 };
 
 // ======================== Main Working Functions =========================================
@@ -64,7 +70,9 @@ const dateSliderInit = () => {
   const nextDayButton = document.querySelector("#nextDayBtn");
   const previousDayButton = document.querySelector("#previousDayBtn");
 
+  //At least one element exists:
   let sliderElementWidth = sliderElementsCollection[0].offsetWidth;
+
   let currentFirstElementIndex = 0;
   dateListWrapper.style.left = 0;
 
@@ -93,6 +101,10 @@ const dateSliderInit = () => {
     }
   };
 
+  const getDateInFormatWeekdayMonthDay = (element) => {
+    return new Date(element).toDateString().split(" ").splice(0, 3).join(" ");
+  };
+
   movieDateSection.addEventListener("click", function ({ target }) {
     if (target.getAttribute("id") === "nextDayBtn") {
       currentFirstElementIndex++;
@@ -105,17 +117,9 @@ const dateSliderInit = () => {
       checkButtonsIsAvailable();
       event.preventDefault();
     } else if (target.classList.contains("movieDate__radioInput")) {
-      const hintContent = new Date(target.defaultValue)
-        .toDateString()
-        .split(" ")
-        .splice(0, 3)
-        .join(" ");
+      const hintContent = getDateInFormatWeekdayMonthDay(target.defaultValue);
       changeContentOfElement(hintElement, hintContent);
     }
-  });
-
-  window.addEventListener("resize", () => {
-    sliderElementWidth = sliderElementsCollection[0].offsetWidth;
   });
 
   checkButtonsIsAvailable();
@@ -127,7 +131,7 @@ const writeDataIntoUserOrderObject = () => {
   const ticketSecondPartNumberMax = 999;
   const ticketThirdPartNumberLength = 6;
 
-  const chosenNumbers = document.querySelectorAll("#hall input:checked");
+  const chosenSeats = document.querySelectorAll("#hall input:checked");
 
   const getRandomIntegerWithCertainLength = (min, max, lengthOfResult) => {
     let randomIntegerString = Math.floor(
@@ -139,18 +143,14 @@ const writeDataIntoUserOrderObject = () => {
     return randomIntegerString;
   };
 
-  const getRandomCharNumberString = (length) => {
+  const getRandomStringOfCharsAndNumbers = (length) => {
     return Math.random().toString(36).substr(2, length).toUpperCase();
-  };
-
-  const getChosenSeats = () => {
-    return Array.from(chosenNumbers).map((seat) => seat.defaultValue);
   };
 
   const createBarcodeNumber = () => {
     const barcodeNumber = [];
 
-    Array.from(chosenNumbers).forEach(() =>
+    Array.from(chosenSeats).forEach(() =>
       barcodeNumber.push(
         getRandomIntegerWithCertainLength(
           0,
@@ -166,7 +166,7 @@ const writeDataIntoUserOrderObject = () => {
   const createTicketNumber = () => {
     const ticketNumber = [];
 
-    Array.from(chosenNumbers).forEach(() =>
+    Array.from(chosenSeats).forEach(() =>
       ticketNumber.push(
         `${getRandomIntegerWithCertainLength(
           0,
@@ -176,7 +176,7 @@ const writeDataIntoUserOrderObject = () => {
           0,
           ticketSecondPartNumberMax,
           ticketSecondPartNumberMax.toString().length
-        )}-${getRandomCharNumberString(ticketThirdPartNumberLength)}`
+        )}-${getRandomStringOfCharsAndNumbers(ticketThirdPartNumberLength)}`
       )
     );
 
@@ -186,7 +186,7 @@ const writeDataIntoUserOrderObject = () => {
   order["hall type"] = getChosenAttributes("#hallType");
   order["date"] = new Date(getChosenAttributes("#movieDate"));
   order["time"] = getChosenAttributes("#movieTime");
-  order["seats"] = getChosenSeats();
+  order["seats"] = Array.from(chosenSeats).map((seat) => seat.defaultValue);
   order["barcode"] = createBarcodeNumber();
   order["ticketNumber"] = createTicketNumber();
 };
@@ -204,24 +204,36 @@ const checkAvailableTimeForToday = () => {
   const movieTimeCollection = document.querySelectorAll(
     ".movieTime__radioInput"
   );
-  if (
-    new Date(Date.now()).toISOString().split("").splice(0, 10).join("") ===
-    document.querySelector("#movieDate input:checked").defaultValue
-  ) {
-    const currentTime = +new Date(Date.now())
-      .toTimeString()
-      .split("")
-      .splice(0, 2)
-      .join("");
-    Array.from(movieTimeCollection).forEach((movieTime) => {
+
+  const getDateNowInFormatYearMonthDay = () => {
+    return new Date(Date.now()).toISOString().split("").splice(0, 10).join("");
+  };
+
+  const getCurrentTimeInHours = () => {
+    return +new Date(Date.now()).toTimeString().split("").splice(0, 2).join("");
+  };
+
+  const getMovieTimeInHours = (time) => {
+    return time.split("").splice(0, 2).join("");
+  };
+
+  const isToday = () => {
+    return (
+      getDateNowInFormatYearMonthDay() ===
+      document.querySelector("#movieDate input:checked").defaultValue
+    );
+  };
+
+  if (isToday()) {
+    movieTimeCollection.forEach((movieTime) => {
       if (
-        movieTime.defaultValue.split("").splice(0, 2).join("") <= currentTime
+        getMovieTimeInHours(movieTime.defaultValue) <= getCurrentTimeInHours()
       ) {
         movieTime.disabled = true;
       }
     });
   } else {
-    Array.from(movieTimeCollection).forEach((movieTime) => {
+    movieTimeCollection.forEach((movieTime) => {
       if (
         movie["booking available state"]["time"][`${movieTime.defaultValue}`]
       ) {
@@ -261,7 +273,7 @@ const checkIsAvailableToOrderSeats = () => {
 const addTakenSeatsToHallSection = () => {
   const seats = document.querySelectorAll(".seat__input");
 
-  Array.from(seats).forEach((seat) => {
+  seats.forEach((seat) => {
     seat.disabled = false;
   });
 
@@ -275,10 +287,10 @@ const addTakenSeatsToHallSection = () => {
 // ======================== Animation and Visualization Functions =========================================
 
 const changeVisualizationInOrderOverflowContent = () => {
-  const getWindowHeight = document.documentElement.clientHeight;
-  const getElementHeight = main.offsetHeight;
+  const windowHeight = document.documentElement.clientHeight;
+  const mainElementHeight = main.offsetHeight;
 
-  if (getWindowHeight > getElementHeight) {
+  if (windowHeight > mainElementHeight) {
     removeClassFromElement(body, "h-auto");
   } else {
     addClassToElement(body, "h-auto");
@@ -314,9 +326,9 @@ const changeScreen = (
       );
       addClassToElement(main, hidePositioning);
       main.innerHTML = modalScreenContent;
-      changeVisualizationInOrderOverflowContent();
       removeClassFromElement(main, hideAnimation);
       addClassToElement(main, showAnimation);
+      changeVisualizationInOrderOverflowContent();
     },
     { once: true }
   );
@@ -366,21 +378,35 @@ const createContentOfHallTypeSection = () => {
 const createContentOfMovieDateSection = () => {
   let content = "";
 
-  const checkIsAvailable = (isAvailable, day) => {
+  const getCurrentMonth = () => {
+    return new Date(Date.now()).getMonth();
+  };
+
+  const getMovieMonth = (date) => {
+    return new Date(date).getMonth();
+  };
+
+  const getDateInDay = (date) => {
+    return new Date(date).toDateString().split(" ").splice(2, 1).join(" ");
+  };
+
+  const getYesterdayDateInDay = () => {
+    return +getDateInDay(Date.now()) - 1;
+  };
+
+  const checkIsAvailable = (isAvailable, date) => {
     if (!isAvailable) {
       return "disabled";
     }
     if (
-      new Date(Date.now()).getMonth() >= new Date(day).getMonth() &&
-      +new Date(Date.now()).toDateString().split(" ").splice(2, 1).join(" ") -
-        1 >=
-        new Date(day).toDateString().split(" ").splice(2, 1).join(" ")
+      getCurrentMonth() >= getMovieMonth(date) &&
+      getYesterdayDateInDay() >= +getDateInDay(date)
     ) {
       return "disabled";
     } // Disable to order ticket for yesterday or earlier day
   };
 
-  Object.keys(movie["booking available state"]["day"]).forEach((key) => {
+  Object.keys(movie["booking available state"]["date"]).forEach((key) => {
     content += `
       <label class="movieDate__radio">
         <input
@@ -388,13 +414,13 @@ const createContentOfMovieDateSection = () => {
         type="radio"
         name="movie-date"
         value=${key}
-         ${checkIsAvailable(movie["booking available state"]["day"][key], key)}
+         ${checkIsAvailable(movie["booking available state"]["date"][key], key)}
         />
         <span class="movieDate__radioSupText">
-        ${new Date(key).toDateString().split(" ").splice(0, 1).join(" ")}
+        ${getWeekdayFromDate(key)}
         </span>
         <time class="movieDate__radioText" datetime=${key}>
-        ${new Date(key).toDateString().split(" ").splice(2, 1).join(" ")}
+        ${getDateInDay(key)}
         </time>
       </label>`;
   });
@@ -480,11 +506,7 @@ const createSeatBookingScreen = `<section id="choseSeatSection" class="choseSeat
       }
         <br />
         <time datetime=${movie["poster section"]["premiere"]}>
-        ${new Date(movie["poster section"]["premiere"])
-          .toDateString()
-          .split(" ")
-          .splice(1, 2)
-          .join(" ")}
+        ${getMonthDayFromDate(movie["poster section"]["premiere"])}
         </time>
         <br />
         ${movie["poster section"]["duration"]}
@@ -583,7 +605,7 @@ const createSeatBookingScreen = `<section id="choseSeatSection" class="choseSeat
           ]
         }
       </p>
-      <a id="buyTicket" class="siteButton siteButton-disabled" href="#">
+      <a id="buyTicket" class="siteButton siteButton-disabled">
         <img
             class="siteButton__img"
             src="img/shopping-cart.svg"
@@ -673,16 +695,8 @@ const createTicket = (hall, date, time, seat, barcode, ticket) => {
               </div>
               <div class="ticket__bodyMovieDate">
                 <div class="badge badge-data badge-ticket">
-                <p class="badge__day">${date
-                  .toDateString()
-                  .split(" ")
-                  .splice(0, 1)
-                  .join(" ")}</p>
-                <p class="badge__date">${date
-                  .toDateString()
-                  .split(" ")
-                  .splice(1, 2)
-                  .join(" ")}</p>
+                <p class="badge__day">${getWeekdayFromDate(date)}</p>
+                <p class="badge__date">${getMonthDayFromDate(date)}</p>
                   <p class="badge__time">${time}</p>
                 </div>
               </div>
@@ -784,6 +798,7 @@ const addListenerIntoSeatBookingScreen = () => {
       checkIsAvailableToOrderSeats()
     ) {
       removeClassFromElement(buyTicketButton, "siteButton-disabled");
+      buyTicketButton.setAttribute("href", "#");
 
       buyTicketButton.addEventListener(
         "click",
@@ -918,6 +933,15 @@ const addListenerIntoMovieMessageScreen = () => {
 };
 
 const initApp = () => {
+  window.addEventListener("load", changeVisualizationInOrderOverflowContent),
+    { once: true };
+  window.addEventListener("resize", () => {
+    changeVisualizationInOrderOverflowContent();
+    if (document.querySelector("#choseSeatSection")) {
+      dateSliderInit();
+    }
+  });
+
   main.insertAdjacentHTML("beforebegin", trailerContent);
   main.innerHTML = createSeatBookingScreen;
   addListenerIntoSeatBookingScreen();

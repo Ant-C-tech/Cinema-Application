@@ -999,6 +999,7 @@ main {
 /* ========== Movie Description Section =========== */
 .movieDescription__content,
 .notification__content {
+  position: relative;
   padding: 0 20px 50px;
 }
 
@@ -1303,7 +1304,6 @@ main {
 
 @media screen and (max-width: 824px) {
   body {
-    height: auto;
     padding: 32px 32px;
 
     background: var(--secondary-color);
@@ -1359,9 +1359,38 @@ main {
   }
 }
 
+/* Animation of change screen for mobile and tablet */
+@media screen and (max-width: 768px) {
+  .hideAnimationForNextScreenVertical {
+    animation: hideElementForNextScreenHorizontal 0.7s;
+  }
+
+  .showAnimationForNextScreenVertical {
+    animation: showElementForNextScreenHorizontal 0.7s;
+  }
+
+  .hideAnimationForPreviousScreenVertical {
+    animation: hideElementForPreviousScreenHorizontal 0.7s;
+  }
+
+  .showAnimationForPreviousScreenVertical {
+    animation: showElementForPreviousScreenHorizontal 0.7s;
+  }
+
+  .angle90_vertical {
+  transform: rotateY(90deg);
+}
+}
+
 @media screen and (max-width: 640px) {
   body {
-    padding: 0px 0px;
+    padding: 0;
+  }
+
+  main{
+    margin: 0 auto;
+
+    border-radius: 0;
   }
 
   .choseSeatSection,
