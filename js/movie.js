@@ -63,6 +63,7 @@ const movie = {
       "Cinema 4Dx": false,
     },
     date: {
+      "2021-02-23": true,
       "2021-02-24": true,
       "2021-02-25": false,
       "2021-02-26": true,
