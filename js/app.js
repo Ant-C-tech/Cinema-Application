@@ -48,7 +48,7 @@ const getChosenAttributes = (attributeID) => {
 };
 
 const getMonthDayFromDate = (date) => {
-  new Date(date).toDateString().split(" ").splice(1, 2).join(" ");
+  return new Date(date).toDateString().split(" ").splice(1, 2).join(" ");
 };
 
 const getWeekdayFromDate = (date) => {
