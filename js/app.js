@@ -55,7 +55,37 @@ const getWeekdayFromDate = (date) => {
   return new Date(date).toDateString().split(" ").splice(0, 1).join(" ");
 };
 
+const getDayNumberFromDate = (date) => {
+  return new Date(date).toDateString().split(" ").splice(2, 1).join(" ");
+};
+
 // ======================== Main Working Functions =========================================
+
+const checkIsAvailableOrderTicketCertainDay = (isAvailable, date) => {
+  const getCurrentMonth = () => {
+    return new Date(Date.now()).getMonth();
+  };
+
+  const getMovieMonth = (date) => {
+    return new Date(date).getMonth();
+  };
+
+  const getYesterdayDateInDay = () => {
+    return +getDayNumberFromDate(Date.now()) - 1;
+  };
+
+  if (!isAvailable) {
+    return false;
+  }
+  if (
+    getCurrentMonth() >= getMovieMonth(date) &&
+    getYesterdayDateInDay() >= +getDayNumberFromDate(date)
+  ) {
+    return false;
+  }
+  return true;
+  // Disable to order ticket for yesterday or earlier day
+};
 
 const dateSliderInit = () => {
   const sliderShowedLength = 5;
@@ -66,6 +96,7 @@ const dateSliderInit = () => {
   const sliderElementsCollection = document.querySelectorAll(
     ".movieDate__radio"
   );
+  const inputCollection = document.querySelectorAll(".movieDate__radioInput");
 
   const nextDayButton = document.querySelector("#nextDayBtn");
   const previousDayButton = document.querySelector("#previousDayBtn");
@@ -101,24 +132,53 @@ const dateSliderInit = () => {
     }
   };
 
-  const getDateInFormatWeekdayMonthDay = (element) => {
+  const getWeekdayMonthFromDate = (element) => {
     return new Date(element).toDateString().split(" ").splice(0, 3).join(" ");
   };
+
+  const addContentToDateHint = (chosenElement) => {
+    changeContentOfElement(hintElement, getWeekdayMonthFromDate(chosenElement));
+  };
+
+  const updateSliderHiddenElements = () => {
+      inputCollection.forEach((date, index) => {
+        if (
+          index >= currentFirstElementIndex + sliderShowedLength ||
+          index < currentFirstElementIndex
+        ) {
+          date.disabled = true;
+        } else {
+          date.disabled = !checkIsAvailableOrderTicketCertainDay(
+            movie["booking available state"]["date"][date.defaultValue],
+            date.defaultValue
+          );
+        }
+      });
+  }
+
+  updateSliderHiddenElements();
 
   movieDateSection.addEventListener("click", function ({ target }) {
     if (target.getAttribute("id") === "nextDayBtn") {
       currentFirstElementIndex++;
       getSliderPosition();
+      updateSliderHiddenElements();
       checkButtonsIsAvailable();
       event.preventDefault();
     } else if (target.getAttribute("id") === "previousDayBtn") {
       currentFirstElementIndex--;
       getSliderPosition();
+      updateSliderHiddenElements();
       checkButtonsIsAvailable();
       event.preventDefault();
     } else if (target.classList.contains("movieDate__radioInput")) {
-      const hintContent = getDateInFormatWeekdayMonthDay(target.defaultValue);
-      changeContentOfElement(hintElement, hintContent);
+      addContentToDateHint(target.defaultValue);
+    }
+  });
+
+  movieDateSection.addEventListener("focus", function ({ target }) {
+    if (target.classList.contains("movieDate__radioInput")) {
+      addContentToDateHint(target.defaultValue);
     }
   });
 
@@ -378,34 +438,6 @@ const createContentOfHallTypeSection = () => {
 const createContentOfMovieDateSection = () => {
   let content = "";
 
-  const getCurrentMonth = () => {
-    return new Date(Date.now()).getMonth();
-  };
-
-  const getMovieMonth = (date) => {
-    return new Date(date).getMonth();
-  };
-
-  const getDateInDay = (date) => {
-    return new Date(date).toDateString().split(" ").splice(2, 1).join(" ");
-  };
-
-  const getYesterdayDateInDay = () => {
-    return +getDateInDay(Date.now()) - 1;
-  };
-
-  const checkIsAvailable = (isAvailable, date) => {
-    if (!isAvailable) {
-      return "disabled";
-    }
-    if (
-      getCurrentMonth() >= getMovieMonth(date) &&
-      getYesterdayDateInDay() >= +getDateInDay(date)
-    ) {
-      return "disabled";
-    } // Disable to order ticket for yesterday or earlier day
-  };
-
   Object.keys(movie["booking available state"]["date"]).forEach((key) => {
     content += `
       <label class="movieDate__radio">
@@ -414,13 +446,20 @@ const createContentOfMovieDateSection = () => {
         type="radio"
         name="movie-date"
         value=${key}
-         ${checkIsAvailable(movie["booking available state"]["date"][key], key)}
+         ${
+           checkIsAvailableOrderTicketCertainDay(
+             movie["booking available state"]["date"][key],
+             key
+           )
+             ? "tabindex=0"
+             : "disabled"
+         }
         />
         <span class="movieDate__radioSupText">
         ${getWeekdayFromDate(key)}
         </span>
         <time class="movieDate__radioText" datetime=${key}>
-        ${getDateInDay(key)}
+        ${getDayNumberFromDate(key)}
         </time>
       </label>`;
   });
