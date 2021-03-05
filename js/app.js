@@ -210,7 +210,7 @@ const writeDataIntoUserOrderObject = () => {
   const createBarcodeNumber = () => {
     const barcodeNumber = [];
 
-    Array.from(chosenSeats).forEach(() =>
+    chosenSeats.forEach(() =>
       barcodeNumber.push(
         getRandomIntegerWithCertainLength(
           0,
@@ -226,7 +226,7 @@ const writeDataIntoUserOrderObject = () => {
   const createTicketNumber = () => {
     const ticketNumber = [];
 
-    Array.from(chosenSeats).forEach(() =>
+    chosenSeats.forEach(() =>
       ticketNumber.push(
         `${getRandomIntegerWithCertainLength(
           0,
