@@ -70,7 +70,7 @@ const checkIsAvailableOrderTicketCertainDay = (isAvailable, date) => {
     return new Date(date).getMonth();
   };
 
-  const getYesterdayDateInDay = () => {
+  const getYesterdayDay = () => {
     return +getDayNumberFromDate(Date.now()) - 1;
   };
 
@@ -79,7 +79,7 @@ const checkIsAvailableOrderTicketCertainDay = (isAvailable, date) => {
   }
   if (
     getCurrentMonth() >= getMovieMonth(date) &&
-    getYesterdayDateInDay() >= +getDayNumberFromDate(date)
+    getYesterdayDay() >= +getDayNumberFromDate(date)
   ) {
     return false;
   }
