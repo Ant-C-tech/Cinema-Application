@@ -17,7 +17,7 @@ const movie = {
         trapped in a surreal nightmare.`,
     "IMBd rating": "5.8",
     "IMBd link": "https://www.imdb.com/title/tt8368406/",
-    premiere: "2021-04-23",
+    premiere: "2021-05-04",
     duration: "1h 39m",
     poster: {
       "poster src": "./img/poster.jpg", //750x1000
