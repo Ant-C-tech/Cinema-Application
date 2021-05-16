@@ -19,7 +19,7 @@ const getArrayOfRandomIntWithRandomLength = () => {
 
 // Result of server work
 const takenSeatsState = {
-  "2021-05-04": {
+  "2021-10-04": {
     General: {
       "14:00": getArrayOfRandomIntWithRandomLength(),
       "17:00": getArrayOfRandomIntWithRandomLength(),
@@ -36,7 +36,7 @@ const takenSeatsState = {
       "20:00": getArrayOfRandomIntWithRandomLength(),
     },
   },
-  "2021-05-05": {
+  "2021-10-05": {
     General: {
       "14:00": getArrayOfRandomIntWithRandomLength(),
       "17:00": getArrayOfRandomIntWithRandomLength(),
@@ -53,7 +53,7 @@ const takenSeatsState = {
       "20:00": getArrayOfRandomIntWithRandomLength(),
     },
   },
-  "2021-05-06": {
+  "2021-10-06": {
     General: {
       "14:00": getArrayOfRandomIntWithRandomLength(),
       "17:00": getArrayOfRandomIntWithRandomLength(),
@@ -70,7 +70,7 @@ const takenSeatsState = {
       "20:00": getArrayOfRandomIntWithRandomLength(),
     },
   },
-  "2021-05-07": {
+  "2021-10-07": {
     General: {
       "14:00": getArrayOfRandomIntWithRandomLength(),
       "17:00": getArrayOfRandomIntWithRandomLength(),
@@ -87,7 +87,7 @@ const takenSeatsState = {
       "20:00": getArrayOfRandomIntWithRandomLength(),
     },
   },
-  "2021-05-08": {
+  "2021-10-08": {
     General: {
       "14:00": getArrayOfRandomIntWithRandomLength(),
       "17:00": getArrayOfRandomIntWithRandomLength(),
@@ -104,7 +104,7 @@ const takenSeatsState = {
       "20:00": getArrayOfRandomIntWithRandomLength(),
     },
   },
-  "2021-05-09": {
+  "2021-10-09": {
     General: {
       "14:00": getArrayOfRandomIntWithRandomLength(),
       "17:00": getArrayOfRandomIntWithRandomLength(),
@@ -121,7 +121,7 @@ const takenSeatsState = {
       "20:00": getArrayOfRandomIntWithRandomLength(),
     },
   },
-  "2021-05-10": {
+  "2021-10-10": {
     General: {
       "14:00": getArrayOfRandomIntWithRandomLength(),
       "17:00": getArrayOfRandomIntWithRandomLength(),
@@ -138,7 +138,7 @@ const takenSeatsState = {
       "20:00": getArrayOfRandomIntWithRandomLength(),
     },
   },
-  "2021-05-11": {
+  "2021-10-11": {
     General: {
       "14:00": getArrayOfRandomIntWithRandomLength(),
       "17:00": getArrayOfRandomIntWithRandomLength(),
@@ -155,7 +155,7 @@ const takenSeatsState = {
       "20:00": getArrayOfRandomIntWithRandomLength(),
     },
   },
-  "2021-05-12": {
+  "2021-10-12": {
     General: {
       "14:00": getArrayOfRandomIntWithRandomLength(),
       "17:00": getArrayOfRandomIntWithRandomLength(),
@@ -172,7 +172,7 @@ const takenSeatsState = {
       "20:00": getArrayOfRandomIntWithRandomLength(),
     },
   },
-  "2021-05-13": {
+  "2021-10-13": {
     General: {
       "14:00": getArrayOfRandomIntWithRandomLength(),
       "17:00": getArrayOfRandomIntWithRandomLength(),
@@ -189,7 +189,7 @@ const takenSeatsState = {
       "20:00": getArrayOfRandomIntWithRandomLength(),
     },
   },
-  "2021-05-14": {
+  "2021-10-14": {
     General: {
       "14:00": getArrayOfRandomIntWithRandomLength(),
       "17:00": getArrayOfRandomIntWithRandomLength(),
